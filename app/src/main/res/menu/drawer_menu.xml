@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/trip_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/my_trips"
+            android:icon="@drawable/ic_round_trip"
+            android:title="@string/my_trips" />
+    </group>
+
+    <group android:id="@+id/extra_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/achievements"
+            android:icon="@drawable/ic_trophy"
+            android:title="@string/achievements" />
+        <item
+            android:id="@+id/statistics"
+            android:icon="@drawable/ic_statistics"
+            android:title="@string/statistics" />
+    </group>
+
+    <group android:id="@+id/help_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/ic_info_outline"
+            android:title="@string/about" />
+    </group>
+
+</menu>
