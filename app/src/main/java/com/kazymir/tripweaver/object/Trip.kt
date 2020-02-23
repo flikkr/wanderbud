@@ -1,8 +1,16 @@
 package com.kazymir.tripweaver.`object`
 
-import java.util.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-class Trip(var title: String, var startDate: Date, var endDate: Date, val destName: String) {
-//    val durationInDays =
+@Entity
+data class Trip(@ColumnInfo var title: String, @ColumnInfo var startDate: String, @ColumnInfo var endDate: String?, @ColumnInfo val destName: String) {
+    //    val durationInDays =
+    companion object {
+        var count = 0
+    }
 
+    @PrimaryKey
+    var tid = count++
 }
