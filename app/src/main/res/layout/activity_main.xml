@@ -25,16 +25,7 @@
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="400dp"
-                android:layout_height="95dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="Testing the montserrat font"
-                android:textSize="36sp" />
-        </FrameLayout>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

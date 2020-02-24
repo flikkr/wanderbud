@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/tripFragment">
+
+    <fragment
+        android:id="@+id/tripFragment"
+        android:name="com.kazymir.tripweaver.fragment.TripFragment"
+        android:label="TripFragment" >
+        <action
+            android:id="@+id/action_tripFragment_to_addTripDialog"
+            app:destination="@id/addTripDialog" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTripDialog"
+        android:name="com.kazymir.tripweaver.fragment.AddTripDialog"
+        android:label="AddTripDialog" />
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.kazymir.tripweaver.fragment.StatisticsFragment"
+        android:label="StatisticsFragment" />
+</navigation>

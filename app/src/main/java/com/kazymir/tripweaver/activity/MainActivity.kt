@@ -13,7 +13,6 @@ import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.database.AppDatabase
 import com.kazymir.tripweaver.fragment.StatisticsFragment
 import com.kazymir.tripweaver.fragment.TripFragment
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout

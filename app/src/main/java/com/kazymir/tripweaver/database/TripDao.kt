@@ -1,10 +1,8 @@
 package com.kazymir.tripweaver.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.kazymir.tripweaver.`object`.Trip
+import com.kazymir.tripweaver.`object`.TripsWithExpenses
 
 @Dao
 interface TripDao {
@@ -13,6 +11,16 @@ interface TripDao {
 
     @Query("SELECT * FROM trip WHERE tid = :tid")
     fun getTrip(tid: Integer): Trip
+
+    @Transaction
+    @Query("SELECT * FROM trip")
+    fun getTripsWithExpenses(): List<TripsWithExpenses>
+
+    @Insert
+    fun addTrip(trip: Trip)
+
+    @Update
+    fun updateTrip(trip: Trip)
 
     @Delete
     fun delete(trip: Trip)
