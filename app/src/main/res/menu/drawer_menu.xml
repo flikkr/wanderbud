@@ -4,7 +4,7 @@
     <group android:id="@+id/trip_group"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/my_trips"
+            android:id="@id/nav_trip"
             android:icon="@drawable/ic_round_trip"
             android:title="@string/my_trips" />
     </group>
@@ -12,11 +12,11 @@
     <group android:id="@+id/extra_group"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/achievements"
+            android:id="@id/nav_achievements"
             android:icon="@drawable/ic_trophy"
             android:title="@string/achievements" />
         <item
-            android:id="@+id/statistics"
+            android:id="@id/nav_statistics"
             android:icon="@drawable/ic_statistics"
             android:title="@string/statistics" />
     </group>
@@ -24,11 +24,11 @@
     <group android:id="@+id/help_group"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/settings"
+            android:id="@id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/settings" />
         <item
-            android:id="@+id/about"
+            android:id="@id/nav_about"
             android:icon="@drawable/ic_info_outline"
             android:title="@string/about" />
     </group>

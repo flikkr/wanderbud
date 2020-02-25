@@ -2,7 +2,6 @@ package com.kazymir.tripweaver.database
 
 import androidx.room.*
 import com.kazymir.tripweaver.`object`.Trip
-import com.kazymir.tripweaver.`object`.TripsWithExpenses
 
 @Dao
 interface TripDao {

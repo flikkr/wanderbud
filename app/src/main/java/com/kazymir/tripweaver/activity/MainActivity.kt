@@ -1,83 +1,63 @@
 package com.kazymir.tripweaver.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.room.Room
 import com.google.android.material.navigation.NavigationView
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.database.AppDatabase
-import com.kazymir.tripweaver.fragment.StatisticsFragment
-import com.kazymir.tripweaver.fragment.TripFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var drawer: DrawerLayout
+class MainActivity : AppCompatActivity() {
     private lateinit var database: AppDatabase
+    private lateinit var appBarConfig: AppBarConfiguration
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
-        drawerInit(savedInstanceState)
+        /*
+         * We could use `AppBarConfiguration(nav_view.menu, drawer_layout)` instead, but since the
+         * Share and Send items are nested, they won't be treated as top-level destinations.
+         */
+        val topLevelDestinations = setOf(
+            R.id.nav_trip,
+            R.id.nav_statistics,
+            R.id.nav_about,
+            R.id.nav_achievements,
+            R.id.nav_settings
+        )
+        appBarConfig = AppBarConfiguration(topLevelDestinations, drawer_layout)
+
+        navController = findNavController(R.id.nav_host_fragment)
+        setupActionBarWithNavController(navController, appBarConfig)
+        nav_view.setupWithNavController(navController)
+
         dbInit()
     }
+    
+    /** Ask the NavController to handle "navigate up" events. */
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
+    }
 
+    /** Close the drawer when hardware back is pressed. */
     override fun onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
     }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.my_trips -> supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container,
-                TripFragment()
-            ).commit()
-            R.id.statistics -> supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container,
-                StatisticsFragment()
-            ).commit()
-        }
-
-        drawer.closeDrawer(GravityCompat.START)
-        return true
-    }
-
-    private fun drawerInit(savedInstanceState: Bundle?) {
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
-        drawer = findViewById(R.id.drawer_layout)
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        navigationView.setNavigationItemSelectedListener(this)
-
-        val toggle = ActionBarDrawerToggle(
-            this,
-            drawer,
-            toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
-
-        drawer.addDrawerListener(toggle)
-        toggle.syncState()
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container,
-                TripFragment()
-            ).commit()
-            navigationView.setCheckedItem(R.id.nav_view)
-        }
-    }
-
     private fun dbInit() {
         database = Room.databaseBuilder(
             applicationContext,

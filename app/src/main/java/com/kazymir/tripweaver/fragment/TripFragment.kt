@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.room.Database
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.Trip
 
@@ -24,15 +25,15 @@ class TripFragment : Fragment(), View.OnClickListener, AddTripDialog.AddTripDial
             inflater.inflate(R.layout.fragment_trip, container, false)
 
         textViewTripName = view.findViewById(R.id.tripName)
-        val addTripBtn = view.findViewById<Button>(R.id.addTripBtn)
-        addTripBtn.setOnClickListener(this)
+        val floatingAddTripBtn = view.findViewById<FloatingActionButton>(R.id.floatingAddTrip)
+        floatingAddTripBtn.setOnClickListener(this)
 
         return view
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.addTripBtn -> openDialog()
+            R.id.floatingAddTrip -> openDialog()
         }
     }
 

@@ -1,7 +1,9 @@
-package com.kazymir.tripweaver.`object`
+package com.kazymir.tripweaver.database
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.kazymir.tripweaver.`object`.Expense
+import com.kazymir.tripweaver.`object`.Trip
 
 data class TripsWithExpenses(
     @Embedded val trip: Trip,

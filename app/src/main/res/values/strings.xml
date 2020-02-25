@@ -1,6 +1,9 @@
 <resources>
-    <!--  Keywords  -->
+    <!--  General  -->
     <string name="app_name">Tripweaver</string>
+    <string name="author">Kazymir Rabier</string>
+
+    <!--  Keywords  -->
     <string name="budget">Budget</string>
     <string name="currency">Currency</string>
     <string name="expenses">Expenses</string>
@@ -31,4 +34,11 @@
     <!--  Accessability  -->
     <string name="navigation_drawer_open">Opened navigation drawer</string>
     <string name="navigation_drawer_close">Closed navigation drawer</string>
+
+    <!--  Miscellaneous  -->
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+
+    <!--  Content  -->
+    <!--  About  -->
+    <string name="about_content">Made by Kazymir Rabier</string>
 </resources>
