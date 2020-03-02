@@ -33,4 +33,12 @@
             android:title="@string/about" />
     </group>
 
+    <group android:id="@+id/DEBUG"
+        android:checkableBehavior="single">
+        <item
+            android:id="@id/nav_debug"
+            android:icon="@drawable/ic_settings"
+            android:title="Debug" />
+    </group>
+
 </menu>

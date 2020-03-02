@@ -7,26 +7,49 @@
 
     <fragment
         android:id="@+id/nav_trip"
-        android:name="com.kazymir.tripweaver.fragment.TripFragment"
-        android:label="TripFragment" >
+        android:name="com.kazymir.tripweaver.fragment.AllTripsFragment"
+        android:label="@string/trips"
+        tools:layout="@layout/fragment_all_trips" >
+        <action
+            android:id="@+id/action_nav_trip_to_master_trip_fragment"
+            app:destination="@id/master_trip_fragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/nav_statistics"
         android:name="com.kazymir.tripweaver.fragment.StatisticsFragment"
-        android:label="StatisticsFragment" />
+        android:label="@string/statistics"
+        tools:layout="@layout/fragment_statistics" />
     <fragment
         android:id="@+id/nav_about"
         android:name="com.kazymir.tripweaver.fragment.AboutFragment"
-        android:label="fragment_about"
+        android:label="@string/about"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.kazymir.tripweaver.fragment.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/nav_achievements"
         android:name="com.kazymir.tripweaver.fragment.AchievementsFragment"
-        android:label="fragment_achievements"
+        android:label="@string/achievements"
         tools:layout="@layout/fragment_achievements" />
+    <fragment
+        android:id="@+id/nav_debug"
+        android:name="com.kazymir.tripweaver.fragment.DebugFragment"
+        android:label="Debug"
+        tools:layout="@layout/fragment_debug" />
+    <fragment
+        android:id="@+id/master_trip_fragment"
+        android:name="com.kazymir.tripweaver.fragment.MasterTripFragment"
+        android:label="Master Trip"
+        tools:layout="@layout/fragment_master_trip" >
+        <argument
+            android:name="masterTripId"
+            app:argType="long" />
+    </fragment>
 </navigation>

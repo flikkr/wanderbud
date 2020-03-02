@@ -16,7 +16,6 @@ import com.kazymir.tripweaver.database.AppDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var database: AppDatabase
     private lateinit var appBarConfig: AppBarConfiguration
     private lateinit var navController: NavController
 
@@ -24,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         /*
          * We could use `AppBarConfiguration(nav_view.menu, drawer_layout)` instead, but since the
@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment)
         setupActionBarWithNavController(navController, appBarConfig)
         nav_view.setupWithNavController(navController)
-
-        dbInit()
     }
     
     /** Ask the NavController to handle "navigate up" events. */
@@ -57,11 +55,5 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
-    }
-    private fun dbInit() {
-        database = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "tripweaver"
-        ).build()
     }
 }

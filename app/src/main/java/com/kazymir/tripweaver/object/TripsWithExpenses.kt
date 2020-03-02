@@ -1,4 +1,4 @@
-package com.kazymir.tripweaver.database
+package com.kazymir.tripweaver.`object`
 
 import androidx.room.Embedded
 import androidx.room.Relation

@@ -2,18 +2,20 @@ package com.kazymir.tripweaver.fragment
 
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.kazymir.tripweaver.R
+import com.kazymir.tripweaver.`object`.MasterTrip
+import com.kazymir.tripweaver.`object`.Trip
 
 
 class AddTripDialog : AppCompatDialogFragment() {
-    private var editTextTripName: EditText? = null
+    private lateinit var editTextTripName: EditText
+    private lateinit var editTextStartDate: EditText
+    private var editTextEndDate: EditText? = null
     private var listener: AddTripDialogListener? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -30,17 +32,20 @@ class AddTripDialog : AppCompatDialogFragment() {
                 .setPositiveButton(
                     R.string.save
                 ) { dialog, id ->
-                    val tripName = editTextTripName?.text.toString()
-                    Toast.makeText(context, tripName, Toast.LENGTH_LONG).show()
-                    listener?.applyTexts(tripName)
+                    val tripName = editTextTripName.text.toString()
+                    val startDate = editTextStartDate.text.toString()
+                    val endDate = editTextEndDate?.text.toString()
+                    listener?.transfer(MasterTrip(tripName, startDate, endDate))
                 }
                 .setNegativeButton(
                     R.string.cancel
                 ) { dialog, id ->
-                    Toast.makeText(context, "AAAAAH", Toast.LENGTH_LONG).show()
                     getDialog()?.cancel()
                 }
+
             editTextTripName = view.findViewById(R.id.titleTrip)
+            editTextStartDate = view.findViewById(R.id.startDate)
+            editTextEndDate = view.findViewById(R.id.endDate)
 
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
@@ -59,6 +64,6 @@ class AddTripDialog : AppCompatDialogFragment() {
     }
 
     interface AddTripDialogListener {
-        fun applyTexts(tripName: String)
+        fun transfer(masterTrip: MasterTrip)
     }
 }
