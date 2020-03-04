@@ -5,47 +5,52 @@
     android:orientation="vertical"
     android:padding="15dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New trip"
-        android:textAlignment="center"
-        android:textSize="24sp" />
-
     <EditText
-        android:id="@+id/titleTrip"
+        android:id="@+id/title_trip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:ems="10"
+        android:hint="Trip name"
         android:inputType="text"
-        android:maxLength="70"
-        android:text="@string/title" />
+        android:maxLength="70" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:layout_marginVertical="10dp" >
 
         <EditText
-            android:id="@+id/startDate"
+            android:id="@+id/start_date"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:cursorVisible="false"
             android:ems="10"
-            android:inputType="date"
-            android:text="@string/from" />
+            android:focusable="false"
+            android:hint="@string/from"
+            android:inputType="date" />
 
         <EditText
-            android:id="@+id/endDate"
+            android:id="@+id/end_date"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:cursorVisible="false"
             android:ems="10"
-            android:inputType="date"
-            android:text="@string/to" />
+            android:focusable="false"
+            android:hint="@string/to"
+            android:inputType="date" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/save_trip_button"
+        style="@style/Base.TextAppearance.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save" />
 
 </LinearLayout>

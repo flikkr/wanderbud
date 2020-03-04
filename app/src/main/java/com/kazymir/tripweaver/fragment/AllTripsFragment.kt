@@ -7,18 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.MasterTrip
-import com.kazymir.tripweaver.`object`.Trip
 import com.kazymir.tripweaver.`object`.MasterTripAdapter
 import com.kazymir.tripweaver.model.MasterTripViewModel
-import com.kazymir.tripweaver.model.TripViewModel
 import kotlinx.android.synthetic.main.fragment_all_trips.view.*
 
 
-class AllTripsFragment : Fragment(), View.OnClickListener, AddTripDialog.AddTripDialogListener {
+class AllTripsFragment : Fragment(), View.OnClickListener {
     private lateinit var masterTripViewModel: MasterTripViewModel
 
     override fun onCreateView(
@@ -50,17 +49,18 @@ class AllTripsFragment : Fragment(), View.OnClickListener, AddTripDialog.AddTrip
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.floatingAddTrip -> openDialog()
+//            R.id.floatingAddTrip -> openDialog()
+            R.id.floatingAddTrip -> v.findNavController().navigate(R.id.action_nav_trip_to_add_trip_fragment)
         }
     }
 
-    private fun openDialog() {
-        val addTripDialog = AddTripDialog()
-        addTripDialog.setTargetFragment(this, 1)
-        addTripDialog.show(fragmentManager!!, "Add trip dialog")
-    }
-
-    override fun transfer(masterTrip: MasterTrip) {
-        masterTripViewModel.insert(masterTrip)
-    }
+//    private fun openDialog() {
+//        val addTripDialog = AddTripDialog()
+//        addTripDialog.setTargetFragment(this, 1)
+//        addTripDialog.show(fragmentManager!!, "Add trip dialog")
+//    }
+//
+//    override fun transfer(masterTrip: MasterTrip) {
+//        masterTripViewModel.insert(masterTrip)
+//    }
 }

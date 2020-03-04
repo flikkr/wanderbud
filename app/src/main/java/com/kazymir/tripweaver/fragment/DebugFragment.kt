@@ -30,10 +30,11 @@ class DebugFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.clear_trip ->
+            R.id.clear_trip -> {
                 CoroutineScope(Dispatchers.IO).launch {
                     AppDatabase.getDatabase(context!!, this).tripDao().clear()
                 }
+            }
         }
     }
 
