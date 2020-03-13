@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity
-data class Trip(val mTripId: Long, var title: String, var startDate: String, var endDate: String?, var destination: String) {
+data class Trip(val mTripId: Long, var title: String, var destination: String) {
     @PrimaryKey(autoGenerate = true)
     var tid: Long = 0
 

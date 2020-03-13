@@ -28,7 +28,7 @@ class MasterTripAdapter internal constructor(context: Context) :
 
     override fun onBindViewHolder(holderMaster: MasterTripHolder, position: Int) {
         val currentTrip = masterTrips[position]
-        holderMaster.tripId = currentTrip.mid
+        holderMaster.mTripId = currentTrip.mid
         holderMaster.tripTitle.text = currentTrip.title
         holderMaster.tripStart.text = currentTrip.startDate
         holderMaster.tripEnd.text = currentTrip.endDate
@@ -43,7 +43,7 @@ class MasterTripAdapter internal constructor(context: Context) :
 
     class MasterTripHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private var view: View = itemView
-        var tripId: Long = 0
+        var mTripId: Long = 0
         val tripTitle: TextView = itemView.trip_title
         val tripStart: TextView = itemView.start_date
         val tripEnd: TextView = itemView.end_date
@@ -53,7 +53,7 @@ class MasterTripAdapter internal constructor(context: Context) :
         }
 
         override fun onClick(itemView: View) {
-            val action = AllTripsFragmentDirections.actionNavAllTripsToMasterTripFragment(tripId)
+            val action = AllTripsFragmentDirections.actionNavAllTripsToMasterTripFragment(mTripId)
             itemView.findNavController().navigate(action)
         }
     }

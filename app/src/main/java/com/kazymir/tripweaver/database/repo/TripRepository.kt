@@ -15,11 +15,11 @@ import kotlinx.coroutines.launch
 
 
 class TripRepository(private val tripDao: TripDao) {
-    var allTrips: LiveData<List<Trip>>? = null
+    private var allTrips: LiveData<List<Trip>>? = null
 
-    fun getTripsByMasterTripId(mTripId: Long): LiveData<List<Trip>> {
+    fun getTripsByMasterTripId(mTripId: Long): LiveData<List<Trip>>? {
         if (allTrips == null) tripDao.getTripsByMasterTripId(mTripId)
-        return allTrips!!
+        return allTrips
     }
 
     suspend fun insert(trip: Trip) {

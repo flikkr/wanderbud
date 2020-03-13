@@ -1,25 +1,24 @@
 package com.kazymir.tripweaver.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.adapter.TripAdapter
 import com.kazymir.tripweaver.model.TripViewModel
 
 class MasterTripFragment : Fragment(), View.OnClickListener {
     private lateinit var tripViewModel: TripViewModel
+    private var mTripId: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +35,7 @@ class MasterTripFragment : Fragment(), View.OnClickListener {
         fab.setOnClickListener(this)
 
         val args = MasterTripFragmentArgs.fromBundle(arguments!!)
-        val mTripId = args.masterTripId
+        mTripId = args.masterTripId
 
         activity?.actionBar?.title = "HEASDNASKDBNA"
 
@@ -51,18 +50,20 @@ class MasterTripFragment : Fragment(), View.OnClickListener {
         recyclerView.adapter = adapter
 
         tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
-        tripViewModel.getTripsByMasterTripId(mTripId)?.let {
-            it.observe(viewLifecycleOwner, Observer { trips ->
-            // Update the cached copy of the trips in the adapter.
-                trips?.let { test.setText("NO ADAPTERS")/*adapter.setTrips(it)*/ }
-                    ?: run { test.setText("IT WORKS") }
+        tripViewModel.getTripsByMasterTripId(mTripId!!)?.let { livedata ->
+            livedata.observe(viewLifecycleOwner, Observer { trips ->
+                // Update the cached copy of the trips in the adapter.
+                trips?.let { adapter.setTrips(it) }
             })
         }
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.floatingAddTrip -> v.findNavController().navigate(R.id.action_master_trip_fragment_to_add_trip_fragment2)
+            R.id.floatingAddTrip -> {
+                val action = MasterTripFragmentDirections.actionMasterTripFragmentToAddTripFragment2(mTripId!!)
+                v.findNavController().navigate(action)
+            }
         }
     }
 

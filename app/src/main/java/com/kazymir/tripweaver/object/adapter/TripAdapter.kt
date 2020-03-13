@@ -30,8 +30,6 @@ class TripAdapter internal constructor(context: Context) :
         val currentTrip = trips[position]
         holder.tripId = currentTrip.tid
         holder.tripTitle.text = currentTrip.title
-        holder.tripStart.text = currentTrip.startDate
-        holder.tripEnd.text = currentTrip.endDate
     }
 
     override fun getItemCount(): Int = trips.size
@@ -45,8 +43,6 @@ class TripAdapter internal constructor(context: Context) :
         private var view: View = itemView
         var tripId: Long = 0
         val tripTitle: TextView = itemView.trip_title
-        val tripStart: TextView = itemView.start_date
-        val tripEnd: TextView = itemView.end_date
 
         init {
             view.setOnClickListener(this)

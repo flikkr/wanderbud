@@ -75,5 +75,9 @@
         android:id="@+id/add_trip_fragment"
         android:name="com.kazymir.tripweaver.fragment.AddTripFragment"
         android:label="Trip Fragment"
-        tools:layout="@layout/fragment_add_trip" />
+        tools:layout="@layout/fragment_add_trip" >
+        <argument
+            android:name="masterTripId"
+            app:argType="long" />
+    </fragment>
 </navigation>
