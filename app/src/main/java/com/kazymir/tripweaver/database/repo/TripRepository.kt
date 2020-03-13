@@ -5,6 +5,7 @@ import android.provider.ContactsContract.CommonDataKinds.Note
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.kazymir.tripweaver.`object`.Trip
+import com.kazymir.tripweaver.`object`.TripsWithExpenses
 import com.kazymir.tripweaver.database.AppDatabase
 import com.kazymir.tripweaver.database.dao.TripDao
 import kotlinx.coroutines.CoroutineScope
@@ -14,35 +15,26 @@ import kotlinx.coroutines.launch
 
 
 class TripRepository(private val tripDao: TripDao) {
-    val allTrips: LiveData<List<Trip>> = tripDao.getAll()
+    var allTrips: LiveData<List<Trip>>? = null
+
+    fun getTripsByMasterTripId(mTripId: Long): LiveData<List<Trip>> {
+        if (allTrips == null) tripDao.getTripsByMasterTripId(mTripId)
+        return allTrips!!
+    }
 
     suspend fun insert(trip: Trip) {
         tripDao.insert(trip)
     }
 
-//    fun update(trip: Trip) {
-//        CoroutineScope(IO).launch {
-//            tripDao.update(trip)
-//        }
-//    }
-//
-//    fun delete(trip: Trip) {
-//        CoroutineScope(IO).launch {
-//            tripDao.delete(trip)
-//        }
-//    }
-//
-//    fun clear() {
-//        CoroutineScope(IO).launch {
-//            tripDao.clear()
-//        }
-//    }
-//
-//    fun getAll(): LiveData<List<Trip>> {
-//        lateinit var all: LiveData<List<Trip>>
-//        CoroutineScope(IO).launch {
-//            all = tripDao.getAll()
-//        }
-//        return all
-//    }
+    suspend fun update(mTrip: Trip) {
+        tripDao.update(mTrip)
+    }
+
+    suspend fun delete(mTrip: Trip) {
+        tripDao.delete(mTrip)
+    }
+
+    suspend fun clear() {
+        tripDao.clear()
+    }
 }

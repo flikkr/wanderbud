@@ -30,6 +30,12 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav_graph" />
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary" />
+
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

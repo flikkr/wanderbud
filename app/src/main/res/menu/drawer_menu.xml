@@ -4,7 +4,7 @@
     <group android:id="@+id/trip_group"
         android:checkableBehavior="single">
         <item
-            android:id="@id/nav_trip"
+            android:id="@id/nav_all_trips"
             android:icon="@drawable/ic_round_trip"
             android:title="@string/my_trips" />
     </group>

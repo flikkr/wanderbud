@@ -12,39 +12,17 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Trip name"
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:maxLength="70" />
 
-    <LinearLayout
+    <AutoCompleteTextView
+        android:id="@+id/country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_marginVertical="10dp" >
-
-        <EditText
-            android:id="@+id/start_date"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:cursorVisible="false"
-            android:ems="10"
-            android:focusable="false"
-            android:hint="@string/from"
-            android:inputType="date" />
-
-        <EditText
-            android:id="@+id/end_date"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:cursorVisible="false"
-            android:ems="10"
-            android:focusable="false"
-            android:hint="@string/to"
-            android:inputType="date" />
-
-    </LinearLayout>
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Destination"
+        android:inputType="textCapSentences" />
 
     <Button
         android:id="@+id/save_trip_button"
@@ -52,5 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save" />
+
 
 </LinearLayout>

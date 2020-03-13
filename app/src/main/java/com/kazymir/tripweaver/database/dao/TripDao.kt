@@ -7,8 +7,9 @@ import com.kazymir.tripweaver.`object`.TripsWithExpenses
 
 @Dao
 interface TripDao: BaseDao<Trip> {
-    @Query("SELECT * FROM Trip")
-    fun getAll(): LiveData<List<Trip>>
+
+    @Query("SELECT * FROM Trip WHERE mTripId = :mTripId")
+    fun getTripsByMasterTripId(mTripId: Long): LiveData<List<Trip>>
 
     @Transaction
     @Query("SELECT * FROM Trip")

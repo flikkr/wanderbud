@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
          * Share and Send items are nested, they won't be treated as top-level destinations.
          */
         val topLevelDestinations = setOf(
-            R.id.nav_trip,
+            R.id.nav_all_trips,
             R.id.nav_statistics,
             R.id.nav_about,
             R.id.nav_achievements,

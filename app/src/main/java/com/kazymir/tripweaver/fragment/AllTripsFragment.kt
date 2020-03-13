@@ -11,8 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kazymir.tripweaver.R
-import com.kazymir.tripweaver.`object`.MasterTrip
-import com.kazymir.tripweaver.`object`.MasterTripAdapter
+import com.kazymir.tripweaver.`object`.adapter.MasterTripAdapter
 import com.kazymir.tripweaver.model.MasterTripViewModel
 import kotlinx.android.synthetic.main.fragment_all_trips.view.*
 
@@ -35,13 +34,14 @@ class AllTripsFragment : Fragment(), View.OnClickListener {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
-        val adapter = MasterTripAdapter(context!!)
+        val adapter =
+            MasterTripAdapter(context!!)
         recyclerView.adapter = adapter
 
         masterTripViewModel = ViewModelProvider(this).get(MasterTripViewModel::class.java)
-        masterTripViewModel.allTrips.observe(viewLifecycleOwner, Observer { trips ->
+        masterTripViewModel.allTrips.observe(viewLifecycleOwner, Observer { mTrips ->
             // Update the cached copy of the trips in the adapter.
-            trips?.let { adapter.setTrips(it) }
+            mTrips?.let { adapter.setTrips(it) }
         })
 
         return view
@@ -50,7 +50,7 @@ class AllTripsFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
 //            R.id.floatingAddTrip -> openDialog()
-            R.id.floatingAddTrip -> v.findNavController().navigate(R.id.action_nav_trip_to_add_trip_fragment)
+            R.id.floatingAddTrip -> v.findNavController().navigate(R.id.action_nav_all_trips_to_add_master_trip_fragment6)
         }
     }
 

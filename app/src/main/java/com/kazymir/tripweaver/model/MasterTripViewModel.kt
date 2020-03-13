@@ -1,15 +1,12 @@
 package com.kazymir.tripweaver.model
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.kazymir.tripweaver.`object`.MasterTrip
-import com.kazymir.tripweaver.`object`.Trip
 import com.kazymir.tripweaver.database.AppDatabase
 import com.kazymir.tripweaver.database.repo.MasterTripRepository
-import com.kazymir.tripweaver.database.repo.TripRepository
 import kotlinx.coroutines.launch
 
 // Class extends AndroidViewModel and requires application as a parameter.
@@ -25,30 +22,23 @@ class MasterTripViewModel(application: Application): AndroidViewModel(applicatio
         // the correct TripRepository.
         val masterTripDao = AppDatabase.getDatabase(application, viewModelScope).masterTripDao()
         repository = MasterTripRepository(masterTripDao)
-        allTrips = repository.allTrips
+        allTrips = repository.allMasterTrips
     }
 
-    /**
-     * The implementation of insert() in the database is completely hidden from the UI.
-     * Room ensures that you're not doing any long running operations on
-     * the main thread, blocking the UI, so we don't need to handle changing Dispatchers.
-     * ViewModels have a coroutine scope based on their lifecycle called
-     * viewModelScope which we can use here.
-     */
-    fun insert(masterTrip: MasterTrip) = viewModelScope.launch {
-        repository.insert(masterTrip)
+    fun insert(mTrip: MasterTrip) = viewModelScope.launch {
+        repository.insert(mTrip)
     }
 
-//    fun update(trip: Trip) {
-//        tripRepository.update(trip)
-//    }
-//
-//    fun delete(trip: Trip) {
-//        tripRepository.delete(trip)
-//    }
-//
-//    fun clear() {
-//        tripRepository.clear()
-//    }
+    fun update(mTrip: MasterTrip) = viewModelScope.launch {
+        repository.update(mTrip)
+    }
+
+    fun delete(mTrip: MasterTrip) = viewModelScope.launch {
+        repository.delete(mTrip)
+    }
+
+    fun clear() = viewModelScope.launch {
+        repository.clear()
+    }
 
 }

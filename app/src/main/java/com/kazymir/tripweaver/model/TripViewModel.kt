@@ -1,7 +1,6 @@
 package com.kazymir.tripweaver.model
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -16,37 +15,35 @@ class TripViewModel(application: Application): AndroidViewModel(application) {
     // The ViewModel maintains a reference to the repository to get data.
     private val repository: TripRepository
     // LiveData gives us updated words when they change.
-    val allTrips: LiveData<List<Trip>>
+    private var allTrips: LiveData<List<Trip>>? = null
 
     init {
         // Gets reference to TripDao from AppDatabase to construct
         // the correct TripRepository.
         val tripsDao = AppDatabase.getDatabase(application, viewModelScope).tripDao()
         repository = TripRepository(tripsDao)
-        allTrips = repository.allTrips
     }
 
-    /**
-     * The implementation of insert() in the database is completely hidden from the UI.
-     * Room ensures that you're not doing any long running operations on
-     * the main thread, blocking the UI, so we don't need to handle changing Dispatchers.
-     * ViewModels have a coroutine scope based on their lifecycle called
-     * viewModelScope which we can use here.
-     */
+    fun getTripsByMasterTripId(mTripId: Long): LiveData<List<Trip>>? {
+        allTrips?.let { return it }
+        allTrips = repository.allTrips
+        return allTrips
+    }
+
     fun insert(trip: Trip) = viewModelScope.launch {
         repository.insert(trip)
     }
 
-//    fun update(trip: Trip) {
-//        tripRepository.update(trip)
-//    }
-//
-//    fun delete(trip: Trip) {
-//        tripRepository.delete(trip)
-//    }
-//
-//    fun clear() {
-//        tripRepository.clear()
-//    }
+    fun update(trip: Trip) = viewModelScope.launch {
+        repository.update(trip)
+    }
+
+    fun delete(trip: Trip) = viewModelScope.launch {
+        repository.delete(trip)
+    }
+
+    fun clear() = viewModelScope.launch {
+        repository.clear()
+    }
 
 }

@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_trip">
+    app:startDestination="@id/nav_all_trips">
 
     <fragment
-        android:id="@+id/nav_trip"
+        android:id="@+id/nav_all_trips"
         android:name="com.kazymir.tripweaver.fragment.AllTripsFragment"
         android:label="@string/trips"
         tools:layout="@layout/fragment_all_trips" >
         <action
-            android:id="@+id/action_nav_trip_to_master_trip_fragment"
-            app:destination="@id/master_trip_fragment"
+            android:id="@+id/action_nav_all_trips_to_add_master_trip_fragment6"
+            app:destination="@id/add_master_trip_fragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_nav_trip_to_add_trip_fragment"
-            app:destination="@id/add_trip_fragment"
+            android:id="@+id/action_nav_all_trips_to_master_trip_fragment"
+            app:destination="@id/master_trip_fragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/nav_statistics"
@@ -58,10 +58,22 @@
         <argument
             android:name="masterTripId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_master_trip_fragment_to_add_trip_fragment2"
+            app:destination="@id/add_trip_fragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/add_master_trip_fragment"
+        android:name="com.kazymir.tripweaver.fragment.AddMasterTripFragment"
+        android:label="Create new trip"
+        tools:layout="@layout/fragment_add_master_trip" />
     <fragment
         android:id="@+id/add_trip_fragment"
         android:name="com.kazymir.tripweaver.fragment.AddTripFragment"
-        android:label="Create new trip"
+        android:label="Trip Fragment"
         tools:layout="@layout/fragment_add_trip" />
 </navigation>

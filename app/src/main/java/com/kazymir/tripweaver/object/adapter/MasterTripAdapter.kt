@@ -1,7 +1,6 @@
-package com.kazymir.tripweaver.`object`
+package com.kazymir.tripweaver.`object`.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kazymir.tripweaver.R
-import com.kazymir.tripweaver.fragment.AllTripsFragment
+import com.kazymir.tripweaver.`object`.MasterTrip
 import com.kazymir.tripweaver.fragment.AllTripsFragmentDirections
 import kotlinx.android.synthetic.main.item_master_trip.view.*
 
@@ -22,7 +21,9 @@ class MasterTripAdapter internal constructor(context: Context) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MasterTripHolder {
         val itemView: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_master_trip, parent, false)
-        return MasterTripHolder(itemView)
+        return MasterTripHolder(
+            itemView
+        )
     }
 
     override fun onBindViewHolder(holderMaster: MasterTripHolder, position: Int) {
@@ -37,8 +38,6 @@ class MasterTripAdapter internal constructor(context: Context) :
 
     fun setTrips(masterTrips: List<MasterTrip>) {
         this.masterTrips = masterTrips
-
-        Log.d("MasterTripAdapter", "Assigned trips to adapter, number of trips = ${masterTrips.size}")
         notifyDataSetChanged()
     }
 
@@ -54,7 +53,7 @@ class MasterTripAdapter internal constructor(context: Context) :
         }
 
         override fun onClick(itemView: View) {
-            val action = AllTripsFragmentDirections.actionNavTripToMasterTripFragment(tripId)
+            val action = AllTripsFragmentDirections.actionNavAllTripsToMasterTripFragment(tripId)
             itemView.findNavController().navigate(action)
         }
     }
