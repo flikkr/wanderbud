@@ -1,6 +1,7 @@
 package com.kazymir.tripweaver.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.adapter.TripAdapter
+import com.kazymir.tripweaver.model.MasterTripViewModel
 import com.kazymir.tripweaver.model.TripViewModel
 
 class MasterTripFragment : Fragment(), View.OnClickListener {
@@ -49,13 +51,24 @@ class MasterTripFragment : Fragment(), View.OnClickListener {
             TripAdapter(context!!)
         recyclerView.adapter = adapter
 
+//        Log.d("mTrip", tripViewModel.getTripsByMasterTripId(mTripId!!).toString())
+
+
+//        val masterTripViewModel = ViewModelProvider(this).get(MasterTripViewModel::class.java)
+//        masterTripViewModel.allTrips?.observe(viewLifecycleOwner, Observer { mTrips ->
+//            // Update the cached copy of the trips in the adapter.
+//            mTrips?.let { adapter.setTrips(it) }
+//        })
+
         tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
         tripViewModel.getTripsByMasterTripId(mTripId!!)?.let { livedata ->
             livedata.observe(viewLifecycleOwner, Observer { trips ->
                 // Update the cached copy of the trips in the adapter.
+                trips.forEach { Log.d("debug", "mTripId = ${it.mTripId}, tripId = ${it.tid}, budget ${it.cBudget}") }
                 trips?.let { adapter.setTrips(it) }
             })
         }
+
     }
 
     override fun onClick(v: View) {

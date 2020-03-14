@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kazymir.tripweaver.R
+import com.kazymir.tripweaver.`object`.MasterTripsWithTrips
 import com.kazymir.tripweaver.`object`.Trip
-import com.kazymir.tripweaver.fragment.AllTripsFragmentDirections
 import kotlinx.android.synthetic.main.item_master_trip.view.*
 
 

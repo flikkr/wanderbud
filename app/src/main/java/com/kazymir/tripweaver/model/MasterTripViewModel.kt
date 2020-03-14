@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.kazymir.tripweaver.`object`.MasterTrip
+import com.kazymir.tripweaver.`object`.MasterTripsWithTrips
 import com.kazymir.tripweaver.database.AppDatabase
 import com.kazymir.tripweaver.database.repo.MasterTripRepository
 import kotlinx.coroutines.launch
@@ -15,15 +16,22 @@ class MasterTripViewModel(application: Application): AndroidViewModel(applicatio
     // The ViewModel maintains a reference to the repository to get data.
     private val repository: MasterTripRepository
     // LiveData gives us updated words when they change.
-    val allTrips: LiveData<List<MasterTrip>>
+    val allMasterTrips: LiveData<List<MasterTrip>>
+    var allTrips: LiveData<List<MasterTripsWithTrips>>? = null
 
     init {
         // Gets reference to TripDao from AppDatabase to construct
         // the correct TripRepository.
         val masterTripDao = AppDatabase.getDatabase(application, viewModelScope).masterTripDao()
         repository = MasterTripRepository(masterTripDao)
-        allTrips = repository.allMasterTrips
+        allMasterTrips = repository.allMasterTrips
+        allTrips = repository.getAllTripsByMasterTrip()
     }
+
+//    fun getAllTrips() = viewModelScope.launch {
+//        if (allTrips == null) allTrips = repository.getAllTripsByMasterTrip()
+//        return allTrips
+//    }
 
     fun insert(mTrip: MasterTrip) = viewModelScope.launch {
         repository.insert(mTrip)

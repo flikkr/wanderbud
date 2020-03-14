@@ -25,9 +25,7 @@ class TripViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun getTripsByMasterTripId(mTripId: Long): LiveData<List<Trip>>? {
-        allTrips?.let { return it }
-        allTrips = repository.getTripsByMasterTripId(mTripId)
-        return allTrips
+        return repository.getTripsByMasterTripId(mTripId)
     }
 
     fun insert(trip: Trip) = viewModelScope.launch {

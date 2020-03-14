@@ -18,7 +18,7 @@ class TripRepository(private val tripDao: TripDao) {
     private var allTrips: LiveData<List<Trip>>? = null
 
     fun getTripsByMasterTripId(mTripId: Long): LiveData<List<Trip>>? {
-        if (allTrips == null) tripDao.getTripsByMasterTripId(mTripId)
+        if (allTrips == null) allTrips = tripDao.getTripsByMasterTripId(mTripId)
         return allTrips
     }
 

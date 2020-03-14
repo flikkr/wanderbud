@@ -20,7 +20,7 @@ class MasterTripRepository(private val masterTripDao: MasterTripDao) {
     val allMasterTrips: LiveData<List<MasterTrip>> = masterTripDao.getAll()
     var allTrips: LiveData<List<MasterTripsWithTrips>>? = null
 
-    fun getAllTrips(mTrip: MasterTrip): LiveData<List<MasterTripsWithTrips>>? {
+    fun getAllTripsByMasterTrip(): LiveData<List<MasterTripsWithTrips>>? {
         if (allTrips == null) allTrips = masterTripDao.getMasterTripsWithTrips()
         return allTrips
     }

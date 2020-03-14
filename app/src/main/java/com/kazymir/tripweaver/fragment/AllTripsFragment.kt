@@ -39,7 +39,7 @@ class AllTripsFragment : Fragment(), View.OnClickListener {
         recyclerView.adapter = adapter
 
         masterTripViewModel = ViewModelProvider(this).get(MasterTripViewModel::class.java)
-        masterTripViewModel.allTrips.observe(viewLifecycleOwner, Observer { mTrips ->
+        masterTripViewModel.allMasterTrips.observe(viewLifecycleOwner, Observer { mTrips ->
             // Update the cached copy of the trips in the adapter.
             mTrips?.let { adapter.setTrips(it) }
         })
