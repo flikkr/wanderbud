@@ -3,7 +3,7 @@ package com.kazymir.tripweaver.database.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.kazymir.tripweaver.`object`.Trip
-import com.kazymir.tripweaver.`object`.TripsWithExpenses
+import com.kazymir.tripweaver.`object`.TripWithExpenses
 
 @Dao
 interface TripDao: BaseDao<Trip> {
@@ -12,8 +12,8 @@ interface TripDao: BaseDao<Trip> {
     fun getTripsByMasterTripId(mTripId: Long): LiveData<List<Trip>>
 
     @Transaction
-    @Query("SELECT * FROM Trip")
-    fun getTripsWithExpenses(): LiveData<List<TripsWithExpenses>>
+    @Query("SELECT * FROM Trip WHERE tid = :tid")
+    fun getExpensesByTripId(tid: Long): LiveData<TripWithExpenses>
 
     @Query("SELECT * FROM Trip WHERE tid = :tid")
     suspend fun getTrip(tid: Long): Trip

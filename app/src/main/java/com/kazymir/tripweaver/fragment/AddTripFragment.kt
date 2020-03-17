@@ -45,7 +45,8 @@ class AddTripFragment : Fragment(), View.OnClickListener {
 
         view.save_trip_button.setOnClickListener(this)
 
-        var adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, locations.entries.toList())
+        locations.forEach { (s, s2) -> Log.d("Map", "country: $s, code: $s2") }
+        var adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, locations.keys.toList())
         spinnerCountry.adapter = adapter
 
         return view

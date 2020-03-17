@@ -65,19 +65,35 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_master_trip_fragment_to_tripFragment"
+            app:destination="@id/trip_fragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/add_master_trip_fragment"
         android:name="com.kazymir.tripweaver.fragment.AddMasterTripFragment"
-        android:label="Create new trip"
+        android:label="Create new master trip"
         tools:layout="@layout/fragment_add_master_trip" />
     <fragment
         android:id="@+id/add_trip_fragment"
         android:name="com.kazymir.tripweaver.fragment.AddTripFragment"
-        android:label="Trip Fragment"
+        android:label="Create new trip"
         tools:layout="@layout/fragment_add_trip" >
         <argument
             android:name="masterTripId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/trip_fragment"
+        android:name="com.kazymir.tripweaver.fragment.TripFragment"
+        android:label="Trip Fragment"
+        tools:layout="@layout/fragment_trip">
+        <argument
+            android:name="tripId"
             app:argType="long" />
     </fragment>
 </navigation>

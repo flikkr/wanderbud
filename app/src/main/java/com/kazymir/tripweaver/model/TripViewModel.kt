@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.kazymir.tripweaver.`object`.Trip
+import com.kazymir.tripweaver.`object`.TripWithExpenses
 import com.kazymir.tripweaver.database.AppDatabase
 import com.kazymir.tripweaver.database.repo.TripRepository
 import kotlinx.coroutines.launch
@@ -27,6 +28,8 @@ class TripViewModel(application: Application): AndroidViewModel(application) {
     fun getTripsByMasterTripId(mTripId: Long): LiveData<List<Trip>>? {
         return repository.getTripsByMasterTripId(mTripId)
     }
+
+    fun getTripWithExpenses(tripId: Long): LiveData<TripWithExpenses> = repository.getTripWithExpenses(tripId)
 
     fun insert(trip: Trip) = viewModelScope.launch {
         repository.insert(trip)

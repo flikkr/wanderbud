@@ -11,4 +11,6 @@ interface ExpenseDao: BaseDao<Expense> {
     @Query("SELECT * FROM expense WHERE eid = :eid")
     fun getExpense(eid: Long): Expense
 
+    @Query("DELETE FROM Expense")
+    suspend fun clear()
 }

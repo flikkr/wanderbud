@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kazymir.tripweaver.R
-import com.kazymir.tripweaver.`object`.MasterTripsWithTrips
 import com.kazymir.tripweaver.`object`.Trip
+import com.kazymir.tripweaver.fragment.MasterTripFragmentDirections
 import kotlinx.android.synthetic.main.item_master_trip.view.*
+import kotlinx.android.synthetic.main.item_master_trip.view.trip_title
+import kotlinx.android.synthetic.main.item_trip.view.*
 
 
 class TripAdapter internal constructor(context: Context) :
@@ -28,7 +31,8 @@ class TripAdapter internal constructor(context: Context) :
     override fun onBindViewHolder(holder: TripHolder, position: Int) {
         val currentTrip = trips[position]
         holder.tripId = currentTrip.tid
-        holder.tripTitle.text = currentTrip.title
+        holder.title.text = currentTrip.title
+        holder.country.text = currentTrip.destination
     }
 
     override fun getItemCount(): Int = trips.size
@@ -41,15 +45,16 @@ class TripAdapter internal constructor(context: Context) :
     class TripHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private var view: View = itemView
         var tripId: Long = 0
-        val tripTitle: TextView = itemView.trip_title
+        val title: TextView = itemView.trip_title
+        val country: TextView = itemView.country
 
         init {
             view.setOnClickListener(this)
         }
 
         override fun onClick(itemView: View) {
-//            val action = AllTripsFragmentDirections.actionNavTripToMasterTripFragment(tripId)
-//            itemView.findNavController().navigate(action)
+            val action = MasterTripFragmentDirections.actionMasterTripFragmentToTripFragment(tripId)
+            itemView.findNavController().navigate(action)
         }
     }
 }

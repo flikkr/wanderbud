@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/shape"
     android:orientation="vertical"
     android:padding="15dp"
-    android:background="@drawable/shape"
-    android:layout_margin="5dp">
+    app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,12 +16,12 @@
         <ImageView
             android:id="@+id/thumbnail"
             android:layout_width="148dp"
-            android:layout_height="208dp"
+            android:layout_height="180dp"
+            android:contentDescription="Trip thumbnail"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@color/colorPrimary"
-            android:contentDescription="Trip thumbnail" />
+            app:srcCompat="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/trip_title"
@@ -29,11 +30,13 @@
             android:layout_marginStart="16dp"
             android:text="Trip title"
             android:textAlignment="textStart"
-            android:textSize="22sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/thumbnail"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
         <TextView
             android:id="@+id/start"
@@ -52,9 +55,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="-"
+            android:text="dd/mm/yyyy"
             android:textAlignment="textStart"
-            android:textSize="18sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/start" />
 
@@ -62,7 +65,7 @@
             android:id="@+id/end"
             android:layout_width="38dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="74dp"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="24dp"
             android:text="End"
             android:textAlignment="textStart"
@@ -74,10 +77,10 @@
             android:id="@+id/end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="74dp"
-            android:text="-"
+            android:layout_marginStart="60dp"
+            android:text="dd/mm/yyyy"
             android:textAlignment="textStart"
-            android:textSize="18sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/start"
             app:layout_constraintTop_toBottomOf="@+id/end" />
 
@@ -100,7 +103,7 @@
             android:layout_marginStart="16dp"
             android:text="-"
             android:textAlignment="textStart"
-            android:textSize="18sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/location" />
 

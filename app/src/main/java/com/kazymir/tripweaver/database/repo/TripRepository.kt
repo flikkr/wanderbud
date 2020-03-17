@@ -1,17 +1,9 @@
 package com.kazymir.tripweaver.database.repo
 
-import android.app.Application
-import android.provider.ContactsContract.CommonDataKinds.Note
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.kazymir.tripweaver.`object`.Trip
-import com.kazymir.tripweaver.`object`.TripsWithExpenses
-import com.kazymir.tripweaver.database.AppDatabase
+import com.kazymir.tripweaver.`object`.TripWithExpenses
 import com.kazymir.tripweaver.database.dao.TripDao
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
 
 
 class TripRepository(private val tripDao: TripDao) {
@@ -22,16 +14,20 @@ class TripRepository(private val tripDao: TripDao) {
         return allTrips
     }
 
+    fun getTripWithExpenses(tripId: Long): LiveData<TripWithExpenses> {
+        return tripDao.getExpensesByTripId(tripId)
+    }
+
     suspend fun insert(trip: Trip) {
         tripDao.insert(trip)
     }
 
-    suspend fun update(mTrip: Trip) {
-        tripDao.update(mTrip)
+    suspend fun update(trip: Trip) {
+        tripDao.update(trip)
     }
 
-    suspend fun delete(mTrip: Trip) {
-        tripDao.delete(mTrip)
+    suspend fun delete(trip: Trip) {
+        tripDao.delete(trip)
     }
 
     suspend fun clear() {

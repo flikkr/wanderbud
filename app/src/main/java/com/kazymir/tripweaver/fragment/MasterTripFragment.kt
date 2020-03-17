@@ -39,26 +39,14 @@ class MasterTripFragment : Fragment(), View.OnClickListener {
         val args = MasterTripFragmentArgs.fromBundle(arguments!!)
         mTripId = args.masterTripId
 
-        activity?.actionBar?.title = "HEASDNASKDBNA"
-
-        val test = view.findViewById<TextView>(R.id.tester)
+//        activity?.actionBar?.title = "HEASDNASKDBNA"
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
-        val adapter =
-            TripAdapter(context!!)
+        val adapter = TripAdapter(context!!)
         recyclerView.adapter = adapter
-
-//        Log.d("mTrip", tripViewModel.getTripsByMasterTripId(mTripId!!).toString())
-
-
-//        val masterTripViewModel = ViewModelProvider(this).get(MasterTripViewModel::class.java)
-//        masterTripViewModel.allTrips?.observe(viewLifecycleOwner, Observer { mTrips ->
-//            // Update the cached copy of the trips in the adapter.
-//            mTrips?.let { adapter.setTrips(it) }
-//        })
 
         tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
         tripViewModel.getTripsByMasterTripId(mTripId!!)?.let { livedata ->
