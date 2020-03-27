@@ -14,23 +14,17 @@ class TripRepository(private val tripDao: TripDao) {
         return allTrips
     }
 
-    fun getTripWithExpenses(tripId: Long): LiveData<TripWithExpenses> {
-        return tripDao.getExpensesByTripId(tripId)
-    }
+    fun getTripWithExpenses(tripId: Long): LiveData<TripWithExpenses> = tripDao.getExpensesByTripId(tripId)
 
-    suspend fun insert(trip: Trip) {
-        tripDao.insert(trip)
-    }
+    fun getLiveDataTrip(tripId: Long): LiveData<Trip> = tripDao.getLiveDateTrip(tripId)
 
-    suspend fun update(trip: Trip) {
-        tripDao.update(trip)
-    }
+    fun getTrip(tripId: Long): Trip = tripDao.getTrip(tripId)
 
-    suspend fun delete(trip: Trip) {
-        tripDao.delete(trip)
-    }
+    suspend fun insert(trip: Trip) = tripDao.insert(trip)
 
-    suspend fun clear() {
-        tripDao.clear()
-    }
+    suspend fun update(trip: Trip) = tripDao.update(trip)
+
+    suspend fun delete(trip: Trip) = tripDao.delete(trip)
+
+    suspend fun clear() = tripDao.clear()
 }

@@ -1,5 +1,6 @@
 package com.kazymir.tripweaver.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.kazymir.tripweaver.`object`.Expense
@@ -10,6 +11,12 @@ interface ExpenseDao: BaseDao<Expense> {
 
     @Query("SELECT * FROM expense WHERE eid = :eid")
     fun getExpense(eid: Long): Expense
+
+    @Query("SELECT * FROM expense WHERE tripId = :tripId")
+    fun getLiveDataExpensesByTripId(tripId: Long): LiveData<List<Expense>>
+
+    @Query("SELECT * FROM expense WHERE tripId = :tripId")
+    fun getExpensesByTripId(tripId: Long): List<Expense>
 
     @Query("DELETE FROM Expense")
     suspend fun clear()

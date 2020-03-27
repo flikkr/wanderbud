@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
@@ -17,7 +16,7 @@ import com.google.gson.reflect.TypeToken
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.Location
 import com.kazymir.tripweaver.`object`.Trip
-import com.kazymir.tripweaver.model.TripViewModel
+import com.kazymir.tripweaver.`object`.model.TripViewModel
 import com.kazymir.tripweaver.util.AssetManager.Companion.getJsonDataFromAsset
 import kotlinx.android.synthetic.main.fragment_add_master_trip.view.*
 
@@ -35,7 +34,7 @@ class AddTripFragment : Fragment(), View.OnClickListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_trip, container, false)
 
-        val args = MasterTripFragmentArgs.fromBundle(arguments!!)
+        val args = AddTripFragmentArgs.fromBundle(arguments!!)
         mTripId = args.masterTripId
 
         editTextTripTitle = view.findViewById(R.id.title_trip)

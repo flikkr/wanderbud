@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    android:layout_marginBottom="0dp"
     android:background="@drawable/shape"
     android:orientation="vertical"
     android:padding="15dp"
@@ -25,10 +25,10 @@
             android:paddingVertical="5dp"
             android:text="TextView"
             android:textAlignment="viewStart"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textSize="17sp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -42,9 +42,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:text="Travelling to"
+                android:textSize="19sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textSize="19sp" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"
@@ -52,8 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="8dp"
                 android:layout_alignParentBottom="true"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,26 +71,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@android:drawable/ic_menu_gallery" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/city"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_alignParentTop="true"-->
-<!--                    android:layout_marginStart="20dp"-->
-<!--                    android:layout_toEndOf="@+id/imageView"-->
-<!--                    android:text="City"-->
-<!--                    app:layout_constraintStart_toEndOf="@+id/imageView" />-->
+                <!--                <TextView-->
+                <!--                    android:id="@+id/city"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_alignParentTop="true"-->
+                <!--                    android:layout_marginStart="20dp"-->
+                <!--                    android:layout_toEndOf="@+id/imageView"-->
+                <!--                    android:text="City"-->
+                <!--                    app:layout_constraintStart_toEndOf="@+id/imageView" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/country"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_below="@+id/city"-->
-<!--                    android:layout_marginStart="20dp"-->
-<!--                    android:layout_toEndOf="@+id/imageView"-->
-<!--                    android:text="Country"-->
-<!--                    app:layout_constraintStart_toEndOf="@+id/imageView"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/city" />-->
+                <!--                <TextView-->
+                <!--                    android:id="@+id/country"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_below="@+id/city"-->
+                <!--                    android:layout_marginStart="20dp"-->
+                <!--                    android:layout_toEndOf="@+id/imageView"-->
+                <!--                    android:text="Country"-->
+                <!--                    app:layout_constraintStart_toEndOf="@+id/imageView"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/city" />-->
 
                 <TextView
                     android:id="@+id/country"
@@ -110,18 +110,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:weightSum="2" >
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1" >
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -151,8 +151,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1" >
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"

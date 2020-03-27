@@ -9,4 +9,6 @@
     <color name="colorOffWhite">#F9F9F9</color>
     <color name="colorWhite">#FFF</color>
     <color name="colorBlack">#000</color>
+    <color name="colorPositive">#52C771</color>
+    <color name="colorNegative">#DB4F32</color>
 </resources>

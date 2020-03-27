@@ -25,19 +25,13 @@ class MasterTripRepository(private val masterTripDao: MasterTripDao) {
         return allTrips
     }
 
-    suspend fun insert(mTrip: MasterTrip) {
-        masterTripDao.insert(mTrip)
-    }
+//    fun getMasterTrip(mid: Long): LiveData<MasterTrip> = masterTripDao.getMasterTrip(mid)
 
-    suspend fun update(mTrip: MasterTrip) {
-        masterTripDao.update(mTrip)
-    }
+    suspend fun insert(mTrip: MasterTrip) = masterTripDao.insert(mTrip)
 
-    suspend fun delete(mTrip: MasterTrip) {
-        masterTripDao.delete(mTrip)
-    }
+    suspend fun update(mTrip: MasterTrip) = masterTripDao.update(mTrip)
 
-    suspend fun clear() {
-        masterTripDao.clear()
-    }
+    suspend fun delete(mTrip: MasterTrip) = masterTripDao.delete(mTrip)
+
+    suspend fun clear() = masterTripDao.clear()
 }

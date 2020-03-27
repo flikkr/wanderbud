@@ -13,6 +13,4 @@ data class Trip(val mTripId: Long, var title: String, var destination: String) {
     var tBudget: Float = 0f
 
     var cBudget: Float = 0f
-
-    var overBudget: Boolean = cBudget > tBudget
 }

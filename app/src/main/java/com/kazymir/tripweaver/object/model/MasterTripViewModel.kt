@@ -1,4 +1,4 @@
-package com.kazymir.tripweaver.model
+package com.kazymir.tripweaver.`object`.model
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -32,6 +32,8 @@ class MasterTripViewModel(application: Application): AndroidViewModel(applicatio
 //        if (allTrips == null) allTrips = repository.getAllTripsByMasterTrip()
 //        return allTrips
 //    }
+
+//    fun getMasterTrip(mid: Long): LiveData<MasterTrip> = repository.getMasterTrip(mid)
 
     fun insert(mTrip: MasterTrip) = viewModelScope.launch {
         repository.insert(mTrip)

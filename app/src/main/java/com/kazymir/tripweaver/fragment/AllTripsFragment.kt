@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.adapter.MasterTripAdapter
-import com.kazymir.tripweaver.model.MasterTripViewModel
+import com.kazymir.tripweaver.`object`.model.MasterTripViewModel
 import kotlinx.android.synthetic.main.fragment_all_trips.view.*
 
 
@@ -49,18 +49,7 @@ class AllTripsFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-//            R.id.floatingAddTrip -> openDialog()
             R.id.floatingAddTrip -> v.findNavController().navigate(R.id.action_nav_all_trips_to_add_master_trip_fragment6)
         }
     }
-
-//    private fun openDialog() {
-//        val addTripDialog = AddTripDialog()
-//        addTripDialog.setTargetFragment(this, 1)
-//        addTripDialog.show(fragmentManager!!, "Add trip dialog")
-//    }
-//
-//    override fun transfer(masterTrip: MasterTrip) {
-//        masterTripViewModel.insert(masterTrip)
-//    }
 }

@@ -16,8 +16,8 @@ interface MasterTripDao: BaseDao<MasterTrip> {
     @Query("SELECT * FROM MasterTrip")
     fun getMasterTripsWithTrips(): LiveData<List<MasterTripsWithTrips>>
 
-    @Query("SELECT * FROM MasterTrip WHERE mid = :mid")
-    suspend fun getTrip(mid: Long): MasterTrip
+//    @Query("SELECT * FROM MasterTrip WHERE mid = :mid")
+//    fun getMasterTrip(mid: Long): LiveData<MasterTrip>
 
     @Query("DELETE FROM MasterTrip")
     suspend fun clear()

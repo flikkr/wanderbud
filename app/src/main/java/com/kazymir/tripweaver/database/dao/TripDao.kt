@@ -16,7 +16,10 @@ interface TripDao: BaseDao<Trip> {
     fun getExpensesByTripId(tid: Long): LiveData<TripWithExpenses>
 
     @Query("SELECT * FROM Trip WHERE tid = :tid")
-    suspend fun getTrip(tid: Long): Trip
+    fun getLiveDateTrip(tid: Long): LiveData<Trip>
+
+    @Query("SELECT * FROM Trip WHERE tid = :tid")
+    fun getTrip(tid: Long): Trip
 
     @Query("DELETE FROM Trip")
     suspend fun clear()

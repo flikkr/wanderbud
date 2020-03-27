@@ -53,7 +53,7 @@ class MasterTripAdapter internal constructor(context: Context) :
         }
 
         override fun onClick(itemView: View) {
-            val action = AllTripsFragmentDirections.actionNavAllTripsToMasterTripFragment(mTripId)
+            val action = AllTripsFragmentDirections.actionNavAllTripsToMasterTripFragment(mTripId, tripTitle.text.toString())
             itemView.findNavController().navigate(action)
         }
     }

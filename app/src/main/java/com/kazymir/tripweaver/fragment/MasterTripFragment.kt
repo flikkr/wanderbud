@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.adapter.TripAdapter
-import com.kazymir.tripweaver.model.MasterTripViewModel
-import com.kazymir.tripweaver.model.TripViewModel
+import com.kazymir.tripweaver.activity.MainActivity
+import com.kazymir.tripweaver.`object`.model.TripViewModel
 
 class MasterTripFragment : Fragment(), View.OnClickListener {
     private lateinit var tripViewModel: TripViewModel
@@ -38,8 +37,7 @@ class MasterTripFragment : Fragment(), View.OnClickListener {
 
         val args = MasterTripFragmentArgs.fromBundle(arguments!!)
         mTripId = args.masterTripId
-
-//        activity?.actionBar?.title = "HEASDNASKDBNA"
+        val mTripTitle = args.masterTripTitle
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -49,6 +47,10 @@ class MasterTripFragment : Fragment(), View.OnClickListener {
         recyclerView.adapter = adapter
 
         tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
+
+        // Set toolbar title
+        (activity as MainActivity).supportActionBar?.title = mTripTitle
+
         tripViewModel.getTripsByMasterTripId(mTripId!!)?.let { livedata ->
             livedata.observe(viewLifecycleOwner, Observer { trips ->
                 // Update the cached copy of the trips in the adapter.

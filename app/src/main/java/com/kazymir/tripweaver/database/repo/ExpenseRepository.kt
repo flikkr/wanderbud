@@ -5,19 +5,13 @@ import com.kazymir.tripweaver.database.dao.ExpenseDao
 
 
 class ExpenseRepository(private val expenseDao: ExpenseDao) {
-    suspend fun insert(expense: Expense) {
-        expenseDao.insert(expense)
-    }
+    fun getExpensesByTripId(tripId: Long): List<Expense> = expenseDao.getExpensesByTripId(tripId)
 
-    suspend fun update(expense: Expense) {
-        expenseDao.update(expense)
-    }
+    suspend fun insert(expense: Expense) = expenseDao.insert(expense)
 
-    suspend fun delete(expense: Expense) {
-        expenseDao.delete(expense)
-    }
+    suspend fun update(expense: Expense) = expenseDao.update(expense)
 
-    suspend fun clear() {
-        expenseDao.clear()
-    }
+    suspend fun delete(expense: Expense) = expenseDao.delete(expense)
+
+    suspend fun clear() = expenseDao.clear()
 }

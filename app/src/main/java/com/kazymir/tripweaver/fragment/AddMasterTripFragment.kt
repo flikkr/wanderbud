@@ -11,7 +11,7 @@ import androidx.navigation.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.MasterTrip
-import com.kazymir.tripweaver.model.MasterTripViewModel
+import com.kazymir.tripweaver.`object`.model.MasterTripViewModel
 import kotlinx.android.synthetic.main.fragment_add_master_trip.view.*
 import java.text.SimpleDateFormat
 import java.util.*
