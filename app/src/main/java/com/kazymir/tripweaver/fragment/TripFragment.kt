@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -20,9 +21,10 @@ import com.kazymir.tripweaver.`object`.Expense
 import com.kazymir.tripweaver.`object`.Trip
 import com.kazymir.tripweaver.`object`.model.ExpenseViewModel
 import com.kazymir.tripweaver.`object`.model.TripViewModel
+import kotlinx.android.synthetic.main.fragment_trip.*
 
 
-class TripFragment : Fragment() {
+class TripFragment : Fragment(), View.OnClickListener {
     private lateinit var tripViewModel: TripViewModel
     private lateinit var chart: PieChart
     private var tripId: Long = 0
@@ -39,12 +41,17 @@ class TripFragment : Fragment() {
         tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
         tripViewModel.getLiveDataTrip(tripId).observe(viewLifecycleOwner, Observer { trip ->
             budget(view, trip)
-            if (trip.cBudget == 0f) chart.visibility = View.GONE
-            else chart.visibility = View.VISIBLE
+            if (trip.cBudget == 0f) {
+                chart.visibility = View.GONE
+                no_data_text.visibility = View.VISIBLE
+            } else {
+                chart.visibility = View.VISIBLE
+                no_data_text.visibility = View.GONE
+            }
         })
 
         // Chart settings
-        with (chart) {
+        with(chart) {
             data = generatePieData()
             description.isEnabled = false
             holeRadius = 45f
@@ -54,9 +61,21 @@ class TripFragment : Fragment() {
         }
 
         val addExpenseBtn: Button = view.findViewById(R.id.add_expense_btn)
-        addExpenseBtn.setOnClickListener { openDialogExpense() }
+        addExpenseBtn.setOnClickListener(this)
+        val viewExpensesBtn: Button = view.findViewById(R.id.view_expense_btn)
+        viewExpensesBtn.setOnClickListener(this)
 
         return view
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.add_expense_btn -> openDialogExpense()
+            R.id.view_expense_btn -> {
+                val action = TripFragmentDirections.actionTripFragmentToAllExpensesFragment(tripId!!)
+                v.findNavController().navigate(action)
+            }
+        }
     }
 
     // Initialise budget of trip
@@ -83,13 +102,22 @@ class TripFragment : Fragment() {
 
         // Dataset settings
         val ds = PieDataSet(entries, "Expenses by type")
-        with (ds) {
+        with(ds) {
             setColors(*ColorTemplate.COLORFUL_COLORS)
             sliceSpace = 2f
             valueTextColor = Color.WHITE
             valueTextSize = 12f
         }
         return PieData(ds)
+    }
+
+    private fun updatePieData(amount: Float, expType: String) {
+        val trip = tripViewModel.getTrip(tripId)
+        trip.cBudget += amount
+        tripViewModel.update(trip)
+
+        chart.data.dataSet.addEntry(PieEntry(amount, expType))
+        chart.notifyDataSetChanged()
     }
 
     // Take in a list of expenses and transforms it to a map using lambdas
@@ -134,13 +162,7 @@ class TripFragment : Fragment() {
 
                 val expense = Expense(tripId, "£", title, amount, expType)
                 expenseViewModel.insert(expense)
-
-                val trip = tripViewModel.getTrip(tripId)
-                trip.cBudget += amount
-                tripViewModel.update(trip)
-
-                chart.data.dataSet.addEntry(PieEntry(amount, expType))
-                chart.notifyDataSetChanged()
+                updatePieData(amount, expType)
             }
             setNegativeButton(android.R.string.no) { dialog, _ ->
                 dialog.dismiss()

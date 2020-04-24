@@ -68,6 +68,10 @@ class AddMasterTripFragment : Fragment(), View.OnClickListener {
                 val startDate = editTextStartDate.text.toString()
                 val endDate = editTextEndDate.text.toString()
 
+                // Validate inputs
+                val result = validateData(title, startDate, endDate)
+                if (!result) return
+
                 val mTrip = MasterTrip(title, startDate, endDate)
                 val masterTripViewModel = ViewModelProvider(this).get(MasterTripViewModel::class.java)
 
@@ -75,5 +79,20 @@ class AddMasterTripFragment : Fragment(), View.OnClickListener {
                 v.findNavController().popBackStack()
             }
         }
+    }
+
+    // Function to validate the form
+    fun validateData(title: String, startDate: String, endDate: String): Boolean {
+        var isValid = true
+        if (title.isEmpty() || title.length > 70) {
+            editTextTripTitle.error = "Please enter a trip title (70 char. limit)"
+            isValid = false
+        }
+        if (startDate.isEmpty() || endDate.isEmpty()) {
+            editTextStartDate.error = ""
+            editTextEndDate.error = ""
+            isValid = false
+        }
+        return isValid
     }
 }

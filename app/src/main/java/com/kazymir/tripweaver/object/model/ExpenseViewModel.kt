@@ -22,6 +22,8 @@ class ExpenseViewModel(application: Application): AndroidViewModel(application) 
         repository = ExpenseRepository(expenseDao)
     }
 
+    fun getLiveDataExpensesByTripId(tripId: Long): LiveData<List<Expense>> = repository.getLiveDataExpensesByTripId(tripId)
+
     fun getExpensesByTripId(tripId: Long): List<Expense> = runBlocking(IO) {
         repository.getExpensesByTripId(tripId)
     }

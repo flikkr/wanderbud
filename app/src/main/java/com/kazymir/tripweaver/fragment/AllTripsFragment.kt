@@ -27,7 +27,7 @@ class AllTripsFragment : Fragment(), View.OnClickListener {
         val view =
             inflater.inflate(R.layout.fragment_all_trips, container, false)
 
-        val fab = view.floatingAddTrip
+        val fab = view.floating_add_trip
         fab.setOnClickListener(this)
 
         val recyclerView: RecyclerView = view.recycler_view
@@ -49,7 +49,7 @@ class AllTripsFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.floatingAddTrip -> v.findNavController().navigate(R.id.action_nav_all_trips_to_add_master_trip_fragment6)
+            R.id.floating_add_trip -> v.findNavController().navigate(R.id.action_nav_all_trips_to_add_master_trip_fragment6)
         }
     }
 }

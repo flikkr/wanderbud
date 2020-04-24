@@ -17,6 +17,8 @@ data class Expense(
     @PrimaryKey(autoGenerate = true)
     var eid: Long = 0
 
+    var created: String = com.kazymir.tripweaver.util.TypeConverters.dateFormatterFromCalendar(Calendar.getInstance())
+
     // Used to access the different type of expense category. Maps to resource value of icon
     companion object {
         @Ignore

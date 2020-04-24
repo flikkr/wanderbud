@@ -12,7 +12,7 @@ interface ExpenseDao: BaseDao<Expense> {
     @Query("SELECT * FROM expense WHERE eid = :eid")
     fun getExpense(eid: Long): Expense
 
-    @Query("SELECT * FROM expense WHERE tripId = :tripId")
+    @Query("SELECT * FROM expense WHERE tripId = :tripId ORDER BY created DESC")
     fun getLiveDataExpensesByTripId(tripId: Long): LiveData<List<Expense>>
 
     @Query("SELECT * FROM expense WHERE tripId = :tripId")

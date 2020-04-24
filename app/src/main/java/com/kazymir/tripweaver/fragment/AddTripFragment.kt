@@ -70,6 +70,8 @@ class AddTripFragment : Fragment(), View.OnClickListener {
                 val country = spinnerCountry.selectedItem.toString()
                 val countryCode = locations[country]
 
+                val result = validateData(title, budget, country)
+                if (!result) return
 //                val location = Location(country, countryCode!!)
 
                 val trip = Trip(mTripId!!, title, country)
@@ -80,5 +82,23 @@ class AddTripFragment : Fragment(), View.OnClickListener {
                 v.findNavController().popBackStack()
             }
         }
+    }
+
+    // Function to validate the form
+    fun validateData(title: String, budget: String, country: String): Boolean {
+        var isValid = true
+        if (title.isEmpty() || title.length > 70) {
+            editTextTripTitle.error = "Please enter a trip title (70 char. limit)"
+            isValid = false
+        }
+        if (budget.isEmpty()) {
+            editTextBudget.error = "Please enter your trip budget."
+            isValid = false
+        }
+        if (budget.isEmpty()) {
+            editTextBudget.error = "Please enter your trip budget."
+            isValid = false
+        }
+        return isValid
     }
 }

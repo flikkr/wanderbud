@@ -2,9 +2,7 @@ package com.kazymir.tripweaver.fragment
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,8 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.adapter.TripAdapter
-import com.kazymir.tripweaver.activity.MainActivity
 import com.kazymir.tripweaver.`object`.model.TripViewModel
+import com.kazymir.tripweaver.activity.MainActivity
+
 
 class MasterTripFragment : Fragment(), View.OnClickListener {
     private lateinit var tripViewModel: TripViewModel
@@ -32,7 +31,7 @@ class MasterTripFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fab: FloatingActionButton = view.findViewById(R.id.floatingAddTrip)
+        val fab: FloatingActionButton = view.findViewById(R.id.floating_add_trip)
         fab.setOnClickListener(this)
 
         val args = MasterTripFragmentArgs.fromBundle(arguments!!)
@@ -49,7 +48,8 @@ class MasterTripFragment : Fragment(), View.OnClickListener {
         tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
 
         // Set toolbar title
-        (activity as MainActivity).supportActionBar?.title = mTripTitle
+        var toolbar = (activity as MainActivity).supportActionBar
+        toolbar?.title = mTripTitle
 
         tripViewModel.getTripsByMasterTripId(mTripId!!)?.let { livedata ->
             livedata.observe(viewLifecycleOwner, Observer { trips ->
@@ -63,7 +63,7 @@ class MasterTripFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.floatingAddTrip -> {
+            R.id.floating_add_trip -> {
                 val action = MasterTripFragmentDirections.actionMasterTripFragmentToAddTripFragment2(mTripId!!)
                 v.findNavController().navigate(action)
             }

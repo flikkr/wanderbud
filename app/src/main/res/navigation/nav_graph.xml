@@ -9,7 +9,7 @@
         android:id="@+id/nav_all_trips"
         android:name="com.kazymir.tripweaver.fragment.AllTripsFragment"
         android:label="@string/trips"
-        tools:layout="@layout/fragment_all_trips" >
+        tools:layout="@layout/fragment_all_trips">
         <action
             android:id="@+id/action_nav_all_trips_to_add_master_trip_fragment6"
             app:destination="@id/add_master_trip_fragment"
@@ -54,7 +54,7 @@
         android:id="@+id/master_trip_fragment"
         android:name="com.kazymir.tripweaver.fragment.MasterTripFragment"
         android:label="Master Trip"
-        tools:layout="@layout/fragment_master_trip" >
+        tools:layout="@layout/fragment_master_trip">
         <argument
             android:name="masterTripId"
             app:argType="long" />
@@ -71,7 +71,7 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="masterTripTitle"
             app:argType="string" />
@@ -85,7 +85,7 @@
         android:id="@+id/add_trip_fragment"
         android:name="com.kazymir.tripweaver.fragment.AddTripFragment"
         android:label="Create new trip"
-        tools:layout="@layout/fragment_add_trip" >
+        tools:layout="@layout/fragment_add_trip">
         <argument
             android:name="masterTripId"
             app:argType="long" />
@@ -95,6 +95,22 @@
         android:name="com.kazymir.tripweaver.fragment.TripFragment"
         android:label="Trip Fragment"
         tools:layout="@layout/fragment_trip">
+        <argument
+            android:name="tripId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_trip_fragment_to_all_expenses_fragment"
+            app:destination="@id/all_expenses_fragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/all_expenses_fragment"
+        android:name="com.kazymir.tripweaver.fragment.AllExpensesFragment"
+        android:label="All expenses"
+        tools:layout="@layout/fragment_all_expenses">
         <argument
             android:name="tripId"
             app:argType="long" />
