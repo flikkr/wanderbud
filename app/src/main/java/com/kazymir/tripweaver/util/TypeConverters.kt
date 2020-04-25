@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.util.*
 
+/**
+ * Deal with converting between types
+ */
 class TypeConverters {
 
     companion object {
@@ -15,6 +18,7 @@ class TypeConverters {
 //            return c;
 //        }
 
+        // Convert from calendar to date string
         @TypeConverter
         fun dateFormatterFromCalendar(cal: Calendar): String {
             val sdf = SimpleDateFormat("yyyy-MM-dd")

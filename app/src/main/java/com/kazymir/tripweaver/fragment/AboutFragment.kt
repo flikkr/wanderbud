@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.kazymir.tripweaver.R
 
 /**
- * A simple [Fragment] subclass.
+ * A fragment for an about screen
  */
 class AboutFragment : Fragment() {
 

@@ -10,6 +10,8 @@ class ExpenseRepository(private val expenseDao: ExpenseDao) {
 
     fun getExpensesByTripId(tripId: Long): List<Expense> = expenseDao.getExpensesByTripId(tripId)
 
+    suspend fun getTotal(tripId: Long) = expenseDao.getTotal(tripId)
+
     suspend fun insert(expense: Expense) = expenseDao.insert(expense)
 
     suspend fun update(expense: Expense) = expenseDao.update(expense)

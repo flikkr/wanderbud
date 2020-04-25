@@ -21,10 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        /*
-         * We could use `AppBarConfiguration(nav_view.menu, drawer_layout)` instead, but since the
-         * Share and Send items are nested, they won't be treated as top-level destinations.
-         */
+        // Navigation drawer items
         val topLevelDestinations = setOf(
             R.id.nav_all_trips,
             R.id.nav_statistics,

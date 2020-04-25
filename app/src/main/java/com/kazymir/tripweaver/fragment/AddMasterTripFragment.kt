@@ -16,7 +16,9 @@ import kotlinx.android.synthetic.main.fragment_add_master_trip.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+/**
+ * This fragment is used to create new Master Trips
+ */
 class AddMasterTripFragment : Fragment(), View.OnClickListener {
     private lateinit var editTextTripTitle: EditText
     private lateinit var editTextStartDate: EditText
@@ -41,11 +43,13 @@ class AddMasterTripFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
+            // Handles the date picker widget for either start or end date
             R.id.start_date, R.id.end_date -> {
                 val builder = MaterialDatePicker.Builder.dateRangePicker()
                 val picker = builder.build()
                 picker.show(fragmentManager!!, "Material DatePicker")
 
+                // Formats time in milliseconds to gregorian date
                 picker.addOnPositiveButtonClickListener {
                     val sdf = SimpleDateFormat("dd/MM/yyyy")
                     var cal = Calendar.getInstance()
@@ -61,20 +65,20 @@ class AddMasterTripFragment : Fragment(), View.OnClickListener {
                     editTextEndDate.setText("${sdf.format(end.time)}")
                 }
             }
+            // If user chooses to save the trip
             R.id.save_trip_button -> {
-//                TODO("Need to validate user inputs")
-
                 val title = editTextTripTitle.text.toString()
                 val startDate = editTextStartDate.text.toString()
                 val endDate = editTextEndDate.text.toString()
 
                 // Validate inputs
-                val result = validateData(title, startDate, endDate)
-                if (!result) return
+                val isValid = validateData(title, startDate, endDate)
+                if (!isValid) return
 
                 val mTrip = MasterTrip(title, startDate, endDate)
-                val masterTripViewModel = ViewModelProvider(this).get(MasterTripViewModel::class.java)
 
+                // Add trip and return to previous screen
+                val masterTripViewModel = ViewModelProvider(this).get(MasterTripViewModel::class.java)
                 masterTripViewModel.insert(mTrip)
                 v.findNavController().popBackStack()
             }

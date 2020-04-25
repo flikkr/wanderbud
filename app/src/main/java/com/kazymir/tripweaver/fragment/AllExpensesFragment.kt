@@ -18,11 +18,19 @@ import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.Expense
 import com.kazymir.tripweaver.`object`.adapter.ExpenseAdapter
 import com.kazymir.tripweaver.`object`.model.ExpenseViewModel
+import com.kazymir.tripweaver.`object`.model.TripViewModel
 import kotlinx.android.synthetic.main.fragment_all_expenses.view.*
 
+/**
+ * This fragment is used to view all expenses for a trip
+ */
 class AllExpensesFragment : Fragment(), View.OnClickListener {
     private lateinit var expenseViewModel: ExpenseViewModel
     private var tripId: Long = 0
+
+    private lateinit var expenseTitle: EditText
+    private lateinit var expenseTypeSpinner: Spinner
+    private lateinit var expenseAmount: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +39,7 @@ class AllExpensesFragment : Fragment(), View.OnClickListener {
         val view = inflater.inflate(R.layout.fragment_all_expenses, container, false)
         expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
 
-        val args = TripFragmentArgs.fromBundle(arguments!!)
+        val args = AllExpensesFragmentArgs.fromBundle(arguments!!)
         tripId = args.tripId
 
         val fab = view.floating_add_expense
@@ -44,6 +52,7 @@ class AllExpensesFragment : Fragment(), View.OnClickListener {
         val adapter = ExpenseAdapter(context!!)
         recyclerView.adapter = adapter
 
+        // Handle swipe actions
         val itemTouchHelperCallback = object :
             ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(
@@ -54,14 +63,17 @@ class AllExpensesFragment : Fragment(), View.OnClickListener {
                 return false
             }
 
+            // Remove item on swipe
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
                 adapter.removeItem(viewHolder, expenseViewModel)
             }
         }
 
+        // Binding
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
+        // Display expenses in recyclerview
         expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
         expenseViewModel.getLiveDataExpensesByTripId(tripId)
             .observe(viewLifecycleOwner, Observer { expenses ->
@@ -71,6 +83,7 @@ class AllExpensesFragment : Fragment(), View.OnClickListener {
         return view
     }
 
+    // Open dialog to create new expense
     private fun openDialogExpense() {
         val builder = AlertDialog.Builder(context!!)
         val view = activity?.layoutInflater?.inflate(R.layout.dialog_add_expense, null)
@@ -80,9 +93,9 @@ class AllExpensesFragment : Fragment(), View.OnClickListener {
 
         with(builder) {
             setTitle("Add expense")
-            val expenseTitle: EditText = view?.findViewById(R.id.expense_title)!!
-            val expenseTypeSpinner: Spinner = view?.findViewById(R.id.expense_type_spinner)
-            val expenseAmount: EditText = view?.findViewById(R.id.expense_amount)
+            expenseTitle = view?.findViewById(R.id.expense_title)!!
+            expenseTypeSpinner = view?.findViewById(R.id.expense_type_spinner)
+            expenseAmount = view?.findViewById(R.id.expense_amount)
 
             var adapter = ArrayAdapter(
                 context!!,
@@ -91,14 +104,20 @@ class AllExpensesFragment : Fragment(), View.OnClickListener {
             )
             expenseTypeSpinner.adapter = adapter
 
+            // On save
             setPositiveButton(android.R.string.yes) { dialog, which ->
                 val title = expenseTitle.text.toString()
                 val expType = expenseTypeSpinner.selectedItem.toString()
-                val amount = expenseAmount.text.toString().toFloat()
+                val amount = expenseAmount.text.toString()
 
-                val expense = Expense(tripId, "£", title, amount, expType)
-                expenseViewModel.insert(expense)
+                // Validate inputs
+                val isValid = validateData(title, amount)
+                if (isValid) {
+                    val expense = Expense(tripId, "£", title, amount.toFloat(), expType)
+                    expenseViewModel.insert(expense)
+                }
             }
+            // On cancel
             setNegativeButton(android.R.string.no) { dialog, _ ->
                 dialog.dismiss()
             }
@@ -107,8 +126,23 @@ class AllExpensesFragment : Fragment(), View.OnClickListener {
         builder.show()
     }
 
+    // Function to validate the form
+    private fun validateData(title: String, amount: String?): Boolean {
+        var isValid = true
+        if (title.isEmpty() || title.length > 70) {
+            expenseTitle.error = "Please enter an expense name (70 char. limit)"
+            isValid = false
+        }
+        if (amount == null || amount == "") {
+            expenseAmount.error = "Please enter a valid amount."
+            isValid = false
+        }
+        return isValid
+    }
+
     override fun onClick(v: View) {
         when (v.id) {
+            // Open add expense dialog
             R.id.floating_add_expense -> openDialogExpense()
         }
     }

@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kazymir.tripweaver.R
 
+/**
+ * A fragment for a statistics screen
+ */
 class StatisticsFragment : Fragment() {
 
     override fun onCreateView(

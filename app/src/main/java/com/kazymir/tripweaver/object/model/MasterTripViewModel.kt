@@ -15,13 +15,10 @@ class MasterTripViewModel(application: Application): AndroidViewModel(applicatio
 
     // The ViewModel maintains a reference to the repository to get data.
     private val repository: MasterTripRepository
-    // LiveData gives us updated words when they change.
     val allMasterTrips: LiveData<List<MasterTrip>>
     var allTrips: LiveData<List<MasterTripsWithTrips>>? = null
 
     init {
-        // Gets reference to TripDao from AppDatabase to construct
-        // the correct TripRepository.
         val masterTripDao = AppDatabase.getDatabase(application, viewModelScope).masterTripDao()
         repository = MasterTripRepository(masterTripDao)
         allMasterTrips = repository.allMasterTrips

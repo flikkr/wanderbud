@@ -11,6 +11,9 @@ import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.model.MasterTripViewModel
 import kotlinx.android.synthetic.main.fragment_debug.view.*
 
+/**
+ * This fragment is used for debugging
+ */
 class DebugFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(
@@ -29,6 +32,7 @@ class DebugFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.clear_trip -> {
+                // Clear all master trips
                 val masterTripViewModel = ViewModelProvider(this).get(MasterTripViewModel::class.java)
                 masterTripViewModel.clear()
                 Toast.makeText(context, "Cleared MasterTrip table", Toast.LENGTH_SHORT).show()

@@ -8,6 +8,9 @@ import android.view.ViewGroup
 
 import com.kazymir.tripweaver.R
 
+/**
+ * A fragment for an achievement screen
+ */
 class AchievementsFragment : Fragment() {
 
     override fun onCreateView(

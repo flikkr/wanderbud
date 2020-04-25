@@ -15,7 +15,7 @@
 
         <ImageView
             android:id="@+id/thumbnail"
-            android:layout_width="148dp"
+            android:layout_width="124dp"
             android:layout_height="180dp"
             android:contentDescription="Trip thumbnail"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,15 +28,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Trip title"
             android:textAlignment="textStart"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/thumbnail"
-            app:layout_constraintTop_toTopOf="parent"
-            android:ellipsize="end"
-            android:maxLines="1"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/start"
@@ -84,28 +84,28 @@
             app:layout_constraintStart_toEndOf="@+id/start"
             app:layout_constraintTop_toBottomOf="@+id/end" />
 
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="Location"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/thumbnail"
-            app:layout_constraintTop_toBottomOf="@+id/start_date" />
+<!--        <TextView-->
+<!--            android:id="@+id/location"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            android:text="Location"-->
+<!--            android:textAlignment="textStart"-->
+<!--            android:textSize="18sp"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/thumbnail"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/start_date" />-->
 
-        <TextView
-            android:id="@+id/place"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="-"
-            android:textAlignment="textStart"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/thumbnail"
-            app:layout_constraintTop_toBottomOf="@+id/location" />
+<!--        <TextView-->
+<!--            android:id="@+id/place"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:text="-"-->
+<!--            android:textAlignment="textStart"-->
+<!--            android:textSize="14sp"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/thumbnail"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/location" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

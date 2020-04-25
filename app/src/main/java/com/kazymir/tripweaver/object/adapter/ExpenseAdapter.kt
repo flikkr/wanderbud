@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.Expense
 import com.kazymir.tripweaver.`object`.model.ExpenseViewModel
+import com.kazymir.tripweaver.`object`.model.TripViewModel
 import kotlinx.android.synthetic.main.item_expense.view.*
 
-
+/**
+ * Recycler view adapter for expenses
+ */
 class ExpenseAdapter internal constructor(context: Context) :
     RecyclerView.Adapter<ExpenseAdapter.ExpenseHolder>() {
 
@@ -26,6 +29,7 @@ class ExpenseAdapter internal constructor(context: Context) :
         )
     }
 
+    // Binds viewholder attributes
     override fun onBindViewHolder(holder: ExpenseHolder, position: Int) {
         val currentExpense = expenses[position]
         holder.expenseId = currentExpense.eid
@@ -35,14 +39,17 @@ class ExpenseAdapter internal constructor(context: Context) :
         holder.date.text = currentExpense.created
     }
 
+    // Returns the number of items in list
     override fun getItemCount(): Int = expenses.size
 
+    // Sets list items
     fun setTrips(expense: List<Expense>) {
         this.expenses = expense as MutableList<Expense>
         expenses.sortedWith(compareBy { it.created })
         notifyDataSetChanged()
     }
 
+    // Remove list item
     fun removeItem(viewHolder: RecyclerView.ViewHolder, viewModel: ExpenseViewModel) {
         viewModel.delete(expenses[viewHolder.adapterPosition])
         expenses.removeAt(viewHolder.adapterPosition)
@@ -62,7 +69,7 @@ class ExpenseAdapter internal constructor(context: Context) :
         }
 
         override fun onClick(itemView: View) {
-            // TODO: open dialog with data already entered for update
+            // Could add another screen here?
         }
     }
 }

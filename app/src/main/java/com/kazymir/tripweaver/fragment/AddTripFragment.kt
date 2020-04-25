@@ -21,6 +21,9 @@ import com.kazymir.tripweaver.util.AssetManager.Companion.getJsonDataFromAsset
 import kotlinx.android.synthetic.main.fragment_add_master_trip.view.*
 
 
+/**
+ * This fragment is used to create new trips
+ */
 class AddTripFragment : Fragment(), View.OnClickListener {
     private lateinit var editTextTripTitle: EditText
     private lateinit var editTextBudget: EditText
@@ -34,6 +37,7 @@ class AddTripFragment : Fragment(), View.OnClickListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_trip, container, false)
 
+        // Collect arguments (ID)
         val args = AddTripFragmentArgs.fromBundle(arguments!!)
         mTripId = args.masterTripId
 
@@ -51,29 +55,34 @@ class AddTripFragment : Fragment(), View.OnClickListener {
         return view
     }
 
+    // Retrieves country list stored as JSON in assets/countries.json
     private fun loadCountries() {
         val countriesJSON = getJsonDataFromAsset(context!!, "countries.json")
-        Log.i("data", countriesJSON)
 
+        // Use GSON to interpret JSON data
         val tokenizer = object : TypeToken<List<Location>>() {}.type
         val listLocations: List<Location> = Gson().fromJson(countriesJSON, tokenizer)
+        // Create map of country => code
         locations = listLocations.associateBy({ it.country }, { it.countryCode })
     }
 
     override fun onClick(v: View) {
         when (v.id) {
+            // Save trip
             R.id.save_trip_button -> {
-//                TODO("Need to validate user inputs")
-
                 val title = editTextTripTitle.text.toString()
                 val budget = editTextBudget.text.toString()
                 val country = spinnerCountry.selectedItem.toString()
                 val countryCode = locations[country]
 
-                val result = validateData(title, budget, country)
-                if (!result) return
+                // Validate inputs
+                val isValid = validateData(title, budget)
+                if (!isValid) return
+
+                // Should normally be used for caching, not useful in this prototype so omitted
 //                val location = Location(country, countryCode!!)
 
+                // Create new trip, add to database and return to previous screen
                 val trip = Trip(mTripId!!, title, country)
                 trip.tBudget = budget.toFloat()
 
@@ -85,14 +94,10 @@ class AddTripFragment : Fragment(), View.OnClickListener {
     }
 
     // Function to validate the form
-    fun validateData(title: String, budget: String, country: String): Boolean {
+    fun validateData(title: String, budget: String): Boolean {
         var isValid = true
         if (title.isEmpty() || title.length > 70) {
             editTextTripTitle.error = "Please enter a trip title (70 char. limit)"
-            isValid = false
-        }
-        if (budget.isEmpty()) {
-            editTextBudget.error = "Please enter your trip budget."
             isValid = false
         }
         if (budget.isEmpty()) {

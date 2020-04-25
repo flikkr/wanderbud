@@ -19,7 +19,7 @@ data class Expense(
 
     var created: String = com.kazymir.tripweaver.util.TypeConverters.dateFormatterFromCalendar(Calendar.getInstance())
 
-    // Used to access the different type of expense category. Maps to resource value of icon
+    // Used to access the different type of expense category. Maps to resource value of icon (for future implementation of icons for expense types)
     companion object {
         @Ignore
         val expenseType: SortedMap<String, Int> = sortedMapOf(

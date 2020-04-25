@@ -28,6 +28,10 @@ class ExpenseViewModel(application: Application): AndroidViewModel(application) 
         repository.getExpensesByTripId(tripId)
     }
 
+    fun getTotal(tripId: Long): Float? = runBlocking(IO) {
+        repository.getTotal(tripId)
+    }
+
     fun insert(expense: Expense) = viewModelScope.launch {
         repository.insert(expense)
     }

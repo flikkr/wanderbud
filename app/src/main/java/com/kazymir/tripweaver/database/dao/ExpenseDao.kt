@@ -18,6 +18,9 @@ interface ExpenseDao: BaseDao<Expense> {
     @Query("SELECT * FROM expense WHERE tripId = :tripId")
     fun getExpensesByTripId(tripId: Long): List<Expense>
 
+    @Query("SELECT SUM(amount) FROM expense WHERE tripId = :tripId")
+    suspend fun getTotal(tripId: Long): Float?
+
     @Query("DELETE FROM Expense")
     suspend fun clear()
 }

@@ -1,5 +1,6 @@
 package com.kazymir.tripweaver.`object`.adapter
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -9,23 +10,26 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kazymir.tripweaver.R
 import com.kazymir.tripweaver.`object`.MasterTrip
+import com.kazymir.tripweaver.`object`.model.MasterTripViewModel
 import com.kazymir.tripweaver.fragment.AllTripsFragmentDirections
 import kotlinx.android.synthetic.main.item_master_trip.view.*
 
-
+/**
+ * Recycler view adapter for master trips
+ */
 class MasterTripAdapter internal constructor(context: Context) :
     RecyclerView.Adapter<MasterTripAdapter.MasterTripHolder>() {
 
-    private var masterTrips: List<MasterTrip> = ArrayList()
+    private var masterTrips: MutableList<MasterTrip> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MasterTripHolder {
         val itemView: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_master_trip, parent, false)
-        return MasterTripHolder(
-            itemView
-        )
+
+        return MasterTripHolder(itemView)
     }
 
+    // Binds viewholder attributes
     override fun onBindViewHolder(holderMaster: MasterTripHolder, position: Int) {
         val currentTrip = masterTrips[position]
         holderMaster.mTripId = currentTrip.mid
@@ -34,14 +38,24 @@ class MasterTripAdapter internal constructor(context: Context) :
         holderMaster.tripEnd.text = currentTrip.endDate
     }
 
+    // Returns the number of items in list
     override fun getItemCount(): Int = masterTrips.size
 
+    // Sets list items
     fun setTrips(masterTrips: List<MasterTrip>) {
-        this.masterTrips = masterTrips
+        this.masterTrips = masterTrips  as MutableList<MasterTrip>
         notifyDataSetChanged()
     }
 
-    class MasterTripHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    // Remove list item
+    fun removeItem(viewHolder: RecyclerView.ViewHolder, viewModel: MasterTripViewModel) {
+        viewModel.delete(masterTrips[viewHolder.adapterPosition])
+        masterTrips.removeAt(viewHolder.adapterPosition)
+        notifyItemRemoved(viewHolder.adapterPosition)
+    }
+
+    class MasterTripHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         private var view: View = itemView
         var mTripId: Long = 0
         val tripTitle: TextView = itemView.trip_title
@@ -53,7 +67,11 @@ class MasterTripAdapter internal constructor(context: Context) :
         }
 
         override fun onClick(itemView: View) {
-            val action = AllTripsFragmentDirections.actionNavAllTripsToMasterTripFragment(mTripId, tripTitle.text.toString())
+            // Navigate to master trip fragment
+            val action = AllTripsFragmentDirections.actionNavAllTripsToMasterTripFragment(
+                mTripId,
+                tripTitle.text.toString()
+            )
             itemView.findNavController().navigate(action)
         }
     }

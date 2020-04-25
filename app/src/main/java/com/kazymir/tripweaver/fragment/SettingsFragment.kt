@@ -8,6 +8,9 @@ import android.view.ViewGroup
 
 import com.kazymir.tripweaver.R
 
+/**
+ * A fragment for a settings screen
+ */
 class SettingsFragment : Fragment() {
 
     override fun onCreateView(

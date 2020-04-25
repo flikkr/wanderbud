@@ -4,6 +4,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Update
 
+// Generic template for (C)RUD operations on entities
 interface BaseDao<T> {
 
     @Insert

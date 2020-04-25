@@ -5,6 +5,7 @@ import androidx.room.Query
 import com.kazymir.tripweaver.`object`.Location
 import com.kazymir.tripweaver.database.dao.BaseDao
 
+// Unused
 @Dao
 interface LocationDao: BaseDao<Location> {
     @Query("SELECT * FROM location")

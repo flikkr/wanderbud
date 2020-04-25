@@ -21,13 +21,21 @@ import com.kazymir.tripweaver.`object`.Expense
 import com.kazymir.tripweaver.`object`.Trip
 import com.kazymir.tripweaver.`object`.model.ExpenseViewModel
 import com.kazymir.tripweaver.`object`.model.TripViewModel
+import com.kazymir.tripweaver.activity.MainActivity
 import kotlinx.android.synthetic.main.fragment_trip.*
 
-
+/**
+ * This fragment is used to view budget of trip
+ */
 class TripFragment : Fragment(), View.OnClickListener {
     private lateinit var tripViewModel: TripViewModel
+    private lateinit var expenseViewModel: ExpenseViewModel
     private lateinit var chart: PieChart
     private var tripId: Long = 0
+
+    private lateinit var expenseTitle: EditText
+    private lateinit var expenseTypeSpinner: Spinner
+    private lateinit var expenseAmount: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +46,15 @@ class TripFragment : Fragment(), View.OnClickListener {
         tripId = args.tripId
 
         chart = view.findViewById(R.id.pieChart1)
+        expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
         tripViewModel = ViewModelProvider(this).get(TripViewModel::class.java)
+
+        // Initiliase chart data
         tripViewModel.getLiveDataTrip(tripId).observe(viewLifecycleOwner, Observer { trip ->
             budget(view, trip)
-            if (trip.cBudget == 0f) {
+
+            // Handles chart visibility if there are expenses
+            if (expenseViewModel.getTotal(trip.tid) ?: 0f == 0f) {
                 chart.visibility = View.GONE
                 no_data_text.visibility = View.VISIBLE
             } else {
@@ -49,6 +62,10 @@ class TripFragment : Fragment(), View.OnClickListener {
                 no_data_text.visibility = View.GONE
             }
         })
+
+        // Set toolbar title
+        var toolbar = (activity as MainActivity).supportActionBar
+        toolbar?.title = args.tripTitle
 
         // Chart settings
         with(chart) {
@@ -70,7 +87,9 @@ class TripFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
+            // Opens dialog
             R.id.add_expense_btn -> openDialogExpense()
+            // Opens all expenses fragment
             R.id.view_expense_btn -> {
                 val action = TripFragmentDirections.actionTripFragmentToAllExpensesFragment(tripId!!)
                 v.findNavController().navigate(action)
@@ -83,13 +102,16 @@ class TripFragment : Fragment(), View.OnClickListener {
         val totalBudgetTextView: TextView = v.findViewById(R.id.total_budget)
         val currentBudgetTextView: TextView = v.findViewById(R.id.current_budget)
         totalBudgetTextView.text = trip.tBudget.toString()
-        currentBudgetTextView.text = trip.cBudget.toString()
+        val cBudget = expenseViewModel.getTotal(trip.tid) ?: 0f
+        currentBudgetTextView.text = cBudget.toString()
 
-        if (trip.cBudget > trip.tBudget) currentBudgetTextView.setTextColor(
+        // Set the colour of the budget if over/under budget
+        if (cBudget > trip.tBudget) currentBudgetTextView.setTextColor(
             resources.getColor(R.color.colorNegative, null)
         ) else currentBudgetTextView.setTextColor(resources.getColor(R.color.colorPositive, null))
     }
 
+    // Initialises chart data
     private fun generatePieData(): PieData? {
         val expenseViewModel = ViewModelProvider(this).get(ExpenseViewModel::class.java)
         val expenses = expenseViewModel.getExpensesByTripId(tripId)
@@ -111,6 +133,7 @@ class TripFragment : Fragment(), View.OnClickListener {
         return PieData(ds)
     }
 
+    // Updates pie chart data when new expenses are added
     private fun updatePieData(amount: Float, expType: String) {
         val trip = tripViewModel.getTrip(tripId)
         trip.cBudget += amount
@@ -120,7 +143,7 @@ class TripFragment : Fragment(), View.OnClickListener {
         chart.notifyDataSetChanged()
     }
 
-    // Take in a list of expenses and transforms it to a map using lambdas
+    // Take in a list of expenses and transforms it to a map of {ExpenseType} => {TotalAmount} using lambdas
     private fun listToMap(expenses: List<Expense>): MutableMap<String, Float> {
         val expensesMap: MutableMap<String, Float> = mutableMapOf()
 
@@ -135,6 +158,7 @@ class TripFragment : Fragment(), View.OnClickListener {
         return expensesMap
     }
 
+    // Opens dialog menu for adding expenses
     private fun openDialogExpense() {
         val builder = AlertDialog.Builder(context!!)
         val view = activity?.layoutInflater?.inflate(R.layout.dialog_add_expense, null)
@@ -144,9 +168,9 @@ class TripFragment : Fragment(), View.OnClickListener {
 
         with(builder) {
             setTitle("Add expense")
-            val expenseTitle: EditText = view?.findViewById(R.id.expense_title)!!
-            val expenseTypeSpinner: Spinner = view?.findViewById(R.id.expense_type_spinner)
-            val expenseAmount: EditText = view?.findViewById(R.id.expense_amount)
+            expenseTitle = view?.findViewById(R.id.expense_title)!!
+            expenseTypeSpinner = view?.findViewById(R.id.expense_type_spinner)
+            expenseAmount = view?.findViewById(R.id.expense_amount)
 
             var adapter = ArrayAdapter(
                 context!!,
@@ -155,20 +179,40 @@ class TripFragment : Fragment(), View.OnClickListener {
             )
             expenseTypeSpinner.adapter = adapter
 
+            // Handles save
             setPositiveButton(android.R.string.yes) { dialog, which ->
                 val title = expenseTitle.text.toString()
                 val expType = expenseTypeSpinner.selectedItem.toString()
-                val amount = expenseAmount.text.toString().toFloat()
+                var amount = expenseAmount.text.toString()
 
-                val expense = Expense(tripId, "£", title, amount, expType)
-                expenseViewModel.insert(expense)
-                updatePieData(amount, expType)
+                // Validate inputs
+                val isValid = validateData(title, amount)
+                if (isValid) {
+                    val expense = Expense(tripId, "£", title, amount.toFloat(), expType)
+                    expenseViewModel.insert(expense)
+                    updatePieData(amount.toFloat(), expType)
+                }
             }
+            // Handles cancel
             setNegativeButton(android.R.string.no) { dialog, _ ->
                 dialog.dismiss()
             }
         }
 
         builder.show()
+    }
+
+    // Function to validate the form
+    private fun validateData(title: String, amount: String?): Boolean {
+        var isValid = true
+        if (title.isEmpty() || title.length > 70) {
+            expenseTitle.error = "Please enter an expense name (70 char. limit)"
+            isValid = false
+        }
+        if (amount == null || amount == "") {
+            expenseAmount.error = "Please enter a valid amount."
+            isValid = false
+        }
+        return isValid
     }
 }

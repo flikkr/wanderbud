@@ -8,6 +8,7 @@ import java.util.*
 
 // Using the following API to retrieve information about coutries
 // https://restcountries.eu/#api-endpoints-language
+// This entity was not used in this prototype, for future implementation
 @Entity
 data class Location(
     val country: String,

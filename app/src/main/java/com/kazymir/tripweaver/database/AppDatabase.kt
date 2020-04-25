@@ -37,29 +37,6 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-//        private class AppDatabaseCallback(
-//            private val scope: CoroutineScope
-//        ) : RoomDatabase.Callback() {
-//
-//            override fun onOpen(db: SupportSQLiteDatabase) {
-//                super.onOpen(db)
-//                INSTANCE?.let { database ->
-//                    scope.launch {
-//                        var tripDao = database.tripDao()
-//
-//                        // Delete all content here.
-//                        tripDao.clear()
-//
-//                        // Add sample words.
-//                        var trip = Trip("Trip 1", "1", "2")
-//                        tripDao.insert(trip)
-//                        trip = Trip("Trip 2", "3", "4")
-//                        tripDao.insert(trip)
-//                    }
-//                }
-//            }
-//        }
-
         fun getDatabase(context: Context, scope: CoroutineScope): AppDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
@@ -72,7 +49,6 @@ abstract class AppDatabase : RoomDatabase() {
                     "tripweaver_database"
                 )
                     .fallbackToDestructiveMigration()
-//                    .addCallback(AppDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
                 return instance
